@@ -50,21 +50,23 @@ def printUserTurn(user, s, l):
 def discardCard(cardsOnHand, deck, card):
 	cardsOnHand.remove(card)
 	deck[card] = 2
+	print("You discarded card ", card)
 
 #Use card i, adjust deck[i]
-def useCard(cardsOnHand, deck, card, s):
+def useCardString(cardsOnHand, deck, card, s):
 	if card == 0:
 		if isinstance(s, list):
 			print("AttributeError: 'list' object has no attribute 'split'")
 		else:
 			s = s.split('f')
+			print("s = s.split('f')")
 
 	elif card == 1:
 		if isinstance(s, list):
 			print("AttributeError: 'list' object has no attribute 'split'")
 		else:
 			s = s.split('i')
-			print(s)
+			print("s = s.split('i')")
 
 	elif card == 2: #s[10] = 'd'
 		if isinstance(s, list):
@@ -75,23 +77,28 @@ def useCard(cardsOnHand, deck, card, s):
 	elif card == 3:
 		if isinstance(s, list) and len(s) >= 2:
 			s[1] = 'e'
+			print("s[1] = 'e'")
 		else:
 			print("TypeError: 'str' object does not support item assignment")
 
 	elif card == 4:
 		s = s[:10]
+		print("s = s[:10]")
 
 	elif card == 5:
 		s = 'e'.join(s)
+		print("s = 'e'.join(s)")
 
 	elif card == 6:
 		s = 'd'.join(s)
+		print("s = 'd'.join(s)")
 
 	elif card == 7:
 		if isinstance(s, list):
 			print('TypeError: can only concatenate list (not "str") to list')
 		else:
 			s = s + 'd'
+			print("s = s + 'd'")
 
 	cardsOnHand.remove(card)
 	deck[card] = 2
@@ -115,13 +122,13 @@ def userMove(cardsOnHand, deck, s):
 	if i[0].lower() == "discard":
 		discardCard(cardsOnHand, deck, card)
 	if i[0].lower() == "use":
-		s = useCard(cardsOnHand, deck, card, s)
+		s = useCardString(cardsOnHand, deck, card, s)
 	print("The string is now: s = ", s)
 	return s
 
 #Comp's move
-def compMove(deck):
-	return #THINK
+def compMove(cardsOnHand, deck, l):
+	return l#THINK
 
 #Print the result of comp's move
 def printCompTurn(comp, s, l):
@@ -132,8 +139,7 @@ def printCompTurn(comp, s, l):
 
 
 
-print('\nI have an incorrect list of the first 6 prime numbers and a string with spelling errors:\ns = "Hillo worlf"\nl = [2, 3, 5, 7, 13, 17]\n\nCan 
-you and your opponent choose one each and help me to fix it? (Please enter "Yes" or "No"')
+print('\nI have an incorrect list of the first 6 prime numbers and a string with spelling errors:\ns = "Hillo worlf"\nl = [2, 3, 5, 7, 13, 17]\n\nCan you and your opponent choose one each and help me to fix it? (Please enter "Yes" or "No"')
 
 i = input().lower()
 while i != "yes" and i != "no":
@@ -142,8 +148,7 @@ if i == "no":
 	import sys
 	sys.exit("Bye")
 
-print("\nGreat, I will distribute you and your opponent 4 cards each. Each card contains a line of code to modify the string or list. The one who 
-correct the string or list first wins! Distributing cards...\n")
+print("\nGreat, I will distribute you and your opponent 4 cards each. Each card contains a line of code to modify the string or list. The one who correct the string or list first wins! Distributing cards...\n")
 time.sleep(2)
 
 #Create 2 decks of cards
@@ -167,7 +172,7 @@ while s != "Hello world" and l != [2, 3, 5, 7, 11, 13]:
 
 	s = userMove(user, deckString, s)
 
-	compMove(deckList)
+	l = compMove(user, deckList, l)
 
 	printCompTurn(comp, s, l)
 
@@ -189,11 +194,11 @@ elif l == [2, 3, 5, 7, 11, 13]:
 l = [2, 3, 5, 7, 13, 17]
 l[4] = 11
 l[5] = 13
-return s
+l[3] = 6
 
 l = ' '.join(l)???
 l = l.split("13")???
 l = '11'.join(l)???
 l = l.split("17")???
-l = '13'.join(l)???
+l = l + '13'
 """
