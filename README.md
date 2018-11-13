@@ -1,5 +1,5 @@
 # Knightly Kakapo
-test change after checkout
+
 # Team plan
 https://docs.google.com/document/d/1I3SHuiSmX7hCR9w0mB74jL5hbKI-jkPWWD-8LU7kqxs/edit
 
