@@ -21,6 +21,7 @@ def distributeCard(cardsOnHand, deck):
 
 #Print cards that user has on hand
 def printCard(user):
+	print("These are your cards:")
 	if 0 in user:
 		print("Card 0: s.split('f')")
 	if 1 in user:
@@ -41,10 +42,10 @@ def printCard(user):
 
 #Tell user its his/her turn
 def printUserTurn(user, s, l):
-	print("These are your cards:")
+	print("Now is your turn, you can use or discard one of your cards each turn and I will distribute you one new card.\n")	
 	printCard(user)
 	print("\nThe current string and list are...\ns = ", s, "\nl = ", l, "\n")
-	print("Now is your turn, you can use or discard one of your cards each turn and I will distribute you one new card.\n")	
+
 
 #Discard card from cardsOnHand, adjust deck[i] to 2
 def discardCard(cardsOnHand, deck, card):
