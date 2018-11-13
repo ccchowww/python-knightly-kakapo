@@ -123,19 +123,30 @@ def userMove(cardsOnHand, deck, s):
 		discardCard(cardsOnHand, deck, card)
 	if i[0].lower() == "use":
 		s = useCardString(cardsOnHand, deck, card, s)
-	print("The string is now: s = ", s)
+	print("The string is now: s = ", s, "\n\n")
 	return s
 
 #Comp's move
 def compMove(cardsOnHand, deck, l):
-	return l#THINK
-
-#Print the result of comp's move
-def printCompTurn(comp, s, l):
-	print("Now is your opponent's turn...")
+	print("Now is your opponent's turn...\n")
 	time.sleep(1)
-	print("Your opponent ...")
-	return #THINK
+	card = 0
+	if 0 in cardsOnHand:
+		l[4] = 11
+		print("Your opponent used Card ", card, "\nResult: ls[4] = 11")
+	elif 1 in cardsOnHand:
+		l[5] = 13
+		card = 1
+		print("Your opponent used Card ", card, "\nResult: ls[5] = 13")
+	else: #no useful card
+		card = cardsOnHand[0]
+		print("Your opponent discarded Card ", card)
+	cardsOnHand.remove(card)
+	deck[card] = 2
+	print("l is now: ", l, "\n\n")
+	return l
+
+
 
 
 
@@ -172,9 +183,7 @@ while s != "Hello world" and l != [2, 3, 5, 7, 11, 13]:
 
 	s = userMove(user, deckString, s)
 
-	l = compMove(user, deckList, l)
-
-	printCompTurn(comp, s, l)
+	l = compMove(comp, deckList, l)
 
 	if count == 8:
 		print("There's no card left in the deck.")
@@ -192,13 +201,13 @@ elif l == [2, 3, 5, 7, 11, 13]:
 
 """
 l = [2, 3, 5, 7, 13, 17]
-l[4] = 11
-l[5] = 13
-l[3] = 6
+0l[4] = 11
+1l[5] = 13
 
-l = ' '.join(l)???
-l = l.split("13")???
-l = '11'.join(l)???
-l = l.split("17")???
-l = l + '13'
+2l[3] = 6???
+3l = ' '.join(l)???
+4l = l.split("13")???
+5l = '11'.join(l)???
+6l = l.split("17")???
+7l = l + '13'
 """
