@@ -51,7 +51,7 @@ def printUserTurn(user, s, l):
 def discardCard(cardsOnHand, deck, card):
 	cardsOnHand.remove(card)
 	deck[card] = 2
-	print("You discarded card ", card)
+	print("You discarded card", card)
 
 #Use card i, adjust deck[i]
 def useCardString(cardsOnHand, deck, card, s):
