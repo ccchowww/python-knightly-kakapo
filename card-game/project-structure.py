@@ -29,7 +29,8 @@ def getPlayerInput(): #use normal input()
 """
 calls playerHitBoss or bossHitPlayer
 INPUT: (string castSpell, boolean fail)
-RETURN: health
+RETURN: health      // this doesnt need to return anyhting, just used to call other functions
+                    // tis a helper function
 """
 def castSpell(playerMove):
     if playerMove[1] == True:
@@ -44,7 +45,7 @@ def castSpell(playerMove):
 """
 decrease boss health by (attack)
 INPUT: attack, bossHealth
-RETURN: bossHealth
+RETURN: bossHealth      // instead of returning it could directly change it and return None,
 """
 def playerHitBoss(attack, bossHealth):
     return
@@ -55,7 +56,8 @@ attack2 - deal x+y damage -> turtle draw attack2
 """
 decrease player health by (attack)
 INPUT: attack, playerHealth
-RETURN: playerHealth
+RETURN: playerHealth //same dont need a return, maybe it calls player.takeDamage(x)
+//                          i now know what to do with classes.
 """
 def bossHitPlayer(attack, playerHealth):
     #attack - deal z damage to player -> draw boss attack1
@@ -63,8 +65,8 @@ def bossHitPlayer(attack, playerHealth):
 
 
 """
-if health <0 return false else return true
-INPUT: playerHealth, bossHealth
+if health <0 return false else return true //i was thinking just directly change the flag
+INPUT: playerHealth, bossHealth //inside the function, dont need a return, but either works
 RETURN: boolean
 """
 def checkHealth(playerHealth, bossHealth):
