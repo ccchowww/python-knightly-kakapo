@@ -11,7 +11,7 @@ def getPlayerInput(): #use normal input()
             castSpell = attack1
             fail = False
             castSpell()
-            return(castSpell, playerFail) 
+            return(castSpell, playerFail)
             """could add another element to store error message, maybe show 
             the message in turtle for few secs"""
             """more elifs for other spell name"""
