@@ -98,3 +98,11 @@ def stage():
         castSpell(playerMove)
         flag = checkHealth()
 
+"""
+instead of separate functions calling draw animations,
+we could use a dictionary to store those values, in this case it would be playerHealth = 100
+bossHealth = 100, then we could add hitplayer = x, hitboss = y, spelltodraw = playerattack1
+Then we pass this dict into a drawing function (dict), that will for example check
+difference in health and draw the change, draw the spell, draw death animation, etc
+Essentially have all drawing related functions in one function.
+"""
