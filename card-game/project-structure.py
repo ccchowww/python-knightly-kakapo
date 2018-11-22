@@ -99,6 +99,7 @@ def stage():
         flag = checkHealth()
 
 """
+Nope this is too hard.
 instead of separate functions calling draw animations,
 we could use a dictionary to store those values, in this case it would be playerHealth = 100
 bossHealth = 100, then we could add hitplayer = x, hitboss = y, spelltodraw = playerattack1
