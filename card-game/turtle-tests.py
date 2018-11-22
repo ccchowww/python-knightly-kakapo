@@ -54,8 +54,9 @@ def AnimationHandler():
     damageBoss(200)  # call this to animate decreasing health bar
     time.sleep(1)
     damageBoss(500) # can be called again to decrease further
-    time.sleep(1)
-    damageBoss(400)
+    uinput = input("enter any string")
+    if uinput:
+        damageBoss(400)
 
     turtle.done()
 
