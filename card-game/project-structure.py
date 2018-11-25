@@ -2,19 +2,57 @@
 """Turtle draw boss, boss health
    Turtle draw player, player attacks, player health"""
 
-class Game(): #or should we name the class as Player(), den the two objects are boss and USER,
-#then we might replace every "player" we typed wv "user", or do u hv a better name
+class Game():
 	health = 100
 	fail = False
 	attack = 0
 	castSpell = 0
-	"""i am confused with attack and castSpell, are both of them actually integer?
-	attack is the target and castSpell is the damage deal right?"""
 
-	#move all the functions inside, except stage()?
-	#we may not need playerMove?
-	#and we may only need one function for hit(attack, (user or boss))?
-	#like this-?
+    '''
+
+    so we dont need to pass in any health for both playerhitBoss and bossHitPlayer,
+    only playerHitBoss() needs attack/spellName, then inside it we check for that spell and deal
+    damage.
+
+    i also realize that i wanted to change boss/player health from inside another function, which
+    wont work without declaring it as nonlocal or global depending where we put the healths.
+
+    Right now we need to choose between function oriented or switch to object.
+        if we define playerHealth, bossHealth, other stats... in global scope it looks simpler to me, and
+        may be better when everyone is working on it together, then we change it using global declaration.
+
+        but i also like objects, because web is all objects.
+
+    '''
+
+    """
+    i think its easier to use object bcz we wont need to pass ans return a bunch of stuff into those functions?
+    i have an idea for spellToCast, so initially- (lets say we r working with object)
+    boss.spellToCast = 0
+    player.spellToCast = 0
+
+    After the player input something,
+    boss.spellToCast = 0
+    player.spellToCast = "smtg player input"
+
+    Then we check if whether spellToCast == attack1, if yes-
+    boss.spellToCast = 0
+    player.spellToCast = 30
+    if no-
+    boss.spellToCast = 20
+    player.spellToCast = 0
+
+    so we dont nid to check for tht spell inside playerHitBoss() again, we check it when
+    we set fail to true or false
+
+    and we can just use only one hit() function instead of bossHitPlayer and playerHitBoss,
+    if fail:
+        hit(player)
+    elif not fail:
+        hit(boss)
+
+    """
+
 	def castSpell(player):
 		if player.fail == True:
 			return hit(player)
@@ -29,19 +67,19 @@ class Game(): #or should we name the class as Player(), den the two objects are 
 
 """
 INPUT: none
-RETURN: tuple (string castSpell, boolean fail)
+RETURN: tuple (string spellToCast, boolean fail)
+                ^Name of spell to cast
 """
 def getPlayerInput(): 
     try:
         eval(playerMove)
     except:
         print("code runtime error")
-        castSpell = ""
+        spellToCast = ""
     finally:
         if eval(userInput) == attack1:
-            castSpell = attack1
+            spellToCast = attack1
             fail = False
-            return (castSpell, playerFail) 
             """could add another element to store error message, maybe show 
             the message in turtle for few secs"""
             """more elifs for other spell name"""
@@ -50,35 +88,40 @@ def getPlayerInput():
             return (castSpell, fail)
 
 """
-helper function, calls playerHitBoss or bossHitPlayer
-INPUT: playerMove
+helper function, calls playerHitBoss(spellToCast) or bossHitPlayer()
+INPUT: playerMove == [spellToCast, fail]
 RETURN: none
 """
 def castSpell(playerMove):
     if playerMove[1] == True:
-        return bossHitPlayer(attack, playerHealth)
+        # return bossHitPlayer(attack, playerHealth)
+        return bossHitPlayer(playerHealth)
         #potentially increment counter to track number of fails
     else:
         return playerHitBoss(playerMove[0], bossHealth)
         #player hit boss(playerMove[0]) Hit boss with playerMove[0] spell name. Spells defined here
 
 """
-decrease boss health by (attack)
-INPUT: attack, bossHealth
+this function is where we define all the spells for function oriented
+check for spellName     -- find matching spellName, decrease health, call SpellXAnimation()
+    global PlayerHealth       -- declare health as global, so it is referring to health in global scope
+    PlayerHealth -= attackDamage
+    SpellXAnimation()
+
+# INPUT: attack, bossHealth
+INPUT: spellName # only need spellName
 RETURN: none
 """
-def playerHitBoss(attack, bossHealth):
+def playerHitBoss(spellName):
     return
-"""attack1 - deal x damage -> turtle draw attack1
-attack2 - deal x+y damage -> turtle draw attack2
-..."""
 
 """
-decrease player health by (attack)
-INPUT: attack, playerHealth
+decrease player health by whatever we want, call bossHitanimation()
+# INPUT: attack, playerHealth
+INPUT: jk dont need input
 RETURN: none
 """
-def bossHitPlayer(attack, playerHealth):
+def bossHitPlayer():
     #attack - deal z damage to player -> draw boss attack1
     return
 
@@ -117,13 +160,13 @@ def stage():
         castSpell(playerMove)
         flag = checkHealth()
 
-"""
-Nope this is too hard.
-instead of separate functions calling draw animations,
-we could use a dictionary to store those values, in this case it would be playerHealth = 100
-bossHealth = 100, then we could add hitplayer = x, hitboss = y, spelltodraw = playerattack1
-Then we pass this dict into a drawing function (dict), that will for example check
-difference in health and draw the change, draw the spell, draw death animation, etc
-Essentially have all drawing related functions in one function.
-okies
-"""
+
+
+# Nope this is too hard. {
+# instead of separate functions calling draw animations,
+# we could use a dictionary to store those values, in this case it would be playerHealth = 100
+# bossHealth = 100, then we could add hitplayer = x, hitboss = y, spelltodraw = playerattack1
+# Then we pass this dict into a drawing function (dict), that will for example check
+# difference in health and draw the change, draw the spell, draw death animation, etc
+# Essentially have all drawing related functions in one function.
+# okies }
