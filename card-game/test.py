@@ -1,7 +1,5 @@
-<<<<<<< HEAD
 code = 'attackvar = "a" +"b" + "c"'
 exec(code)
-=======
 # Global scope
 xd = 1
 
@@ -34,4 +32,3 @@ def funcScope():
 
 funcScope()
 print(xd, "xd global")
->>>>>>> d984f77b8306e0a9c2a4823b56501b4f96d1752b

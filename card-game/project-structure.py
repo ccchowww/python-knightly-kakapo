@@ -45,6 +45,10 @@ class Game():
     so we dont nid to check for tht spell inside playerHitBoss() again, we check it when
     we set fail to true or false
 
+        '''
+        damn this is efficient as fuuuuk.
+        '''
+
     and we can just use only one hit() function instead of bossHitPlayer and playerHitBoss,
     if fail:
         hit(player)
@@ -109,7 +113,7 @@ check for spellName     -- find matching spellName, decrease health, call SpellX
     SpellXAnimation()
 
 # INPUT: attack, bossHealth
-INPUT: spellName # only need spellName
+INPUT: spellName
 RETURN: none
 """
 def playerHitBoss(spellName):
@@ -117,8 +121,7 @@ def playerHitBoss(spellName):
 
 """
 decrease player health by whatever we want, call bossHitanimation()
-# INPUT: attack, playerHealth
-INPUT: jk dont need input
+INPUT: none
 RETURN: none
 """
 def bossHitPlayer():
@@ -159,14 +162,3 @@ def stage():
         playerMove = getPlayerInput()
         castSpell(playerMove)
         flag = checkHealth()
-
-
-
-# Nope this is too hard. {
-# instead of separate functions calling draw animations,
-# we could use a dictionary to store those values, in this case it would be playerHealth = 100
-# bossHealth = 100, then we could add hitplayer = x, hitboss = y, spelltodraw = playerattack1
-# Then we pass this dict into a drawing function (dict), that will for example check
-# difference in health and draw the change, draw the spell, draw death animation, etc
-# Essentially have all drawing related functions in one function.
-# okies }
