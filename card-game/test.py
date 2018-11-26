@@ -32,3 +32,5 @@ def funcScope():
 
 funcScope()
 print(xd, "xd global")
+
+#this is deep
