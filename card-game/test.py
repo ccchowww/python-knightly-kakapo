@@ -34,3 +34,4 @@ funcScope()
 print(xd, "xd global")
 
 #this is deep
+# o.o
