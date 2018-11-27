@@ -56,7 +56,7 @@ def getPlayerInput(attack1):
         player.spellToCast = 10
         fail = True
         return Game.castSpell(fail)
-    finally:
+    else:
         if (eval(playerMove) == attack1.attack):
             boss.spellToCast = 10
             player.spellToCast = 0
