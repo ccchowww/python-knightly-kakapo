@@ -7,7 +7,7 @@ import turtle
 wn = turtle.Screen()
 wn.bgcolor("#EEEEEC")
 wn.title("Object-based Turtles")
-wn.setup(1000,1000)
+wn.setup(800,800)
 
 PlayerHp = PlayerHp()
 BossHp = BossHp()
