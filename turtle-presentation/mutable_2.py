@@ -40,20 +40,26 @@ class Example2(self.self):
                 self.pendown()
 
                 #UPPERBOX
-                #arrow
+                #arrow(breaks)
+                self.penup()
                 self.forward(50)
                 self.right(90)
                 self.forward(25)
                 self.left(90)
-                self.forward(20)
                 self.pendown()
-                self.forward(50)
+                self.forward(10)
+                for i in range(6):
+                    self.pendown()
+                    self.forward(5)
+                    self.penup()
+                    self.forward(5)
+                self.pendown()
                 self.left(160)
-                self.forward(15)
-                self.backward(15)
+                self.forward(10)
+                self.backward(10)
                 self.left(45)
-                self.forward(15)
-                self.backward(15)
+                self.forward(10)
+                self.backward(10)
                 self.right(205)
 
                 #box
@@ -242,7 +248,7 @@ class Example2(self.self):
                 self.left(90)
                 self.forward(55)
                 self.left(90)
-                '''
+                
 
                
                       
