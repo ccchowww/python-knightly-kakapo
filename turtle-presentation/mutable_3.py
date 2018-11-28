@@ -4,21 +4,16 @@ class Example1(turtle.Turtle):
         def __init__(self):
                 turtle.Turtle.__init__(self)
                 self.penup()
-                self.setpos(-450.00,50.00)
+                self.setpos(-350.00,100.00)
                 self.speed(20)
 
-        def drawEx1(self):      
-                self.write("Example\n"
-                        "Given the following code:\n"
-                        "\n"
-                        "x=[5,4]\n"
-                        "print(id(x))\n"
-                        "x=x*2"
-                        "print(id(x))"
-                        "\n"
-                        "When this code is executed the: \n"
-                        "a new list is created which is assigned to x\n"
-                        "hence modifying the identifier of x"
+        def drawEx3(self):
+
+                self.write("For immutable objects \n"
+                        "x=x*2 and x*=2 behave the same way;\n"
+                        "the copy of x is created as well as \n"
+                        "its reference is updated.\n"
+                        "This is shown below for a string x='hello'. "
                         ,align="left",font=("Ariel",20,"normal"))
 
                 #xbox           
@@ -40,8 +35,9 @@ class Example1(turtle.Turtle):
                 self.end_fill()
                 self.pendown()
 
+                        
                 #UPPERBOX
-                #arrow(breaks)
+                #arrow
                 self.penup()
                 self.forward(50)
                 self.right(90)
@@ -50,10 +46,10 @@ class Example1(turtle.Turtle):
                 self.pendown()
                 self.forward(10)
                 for i in range(6):
-                    self.pendown()
-                    self.forward(5)
-                    self.penup()
-                    self.forward(5)
+                        self.pendown()
+                        self.forward(5)
+                self.penup()
+                self.forward(5)
                 self.pendown()
                 self.left(160)
                 self.forward(10)
@@ -71,13 +67,8 @@ class Example1(turtle.Turtle):
                 self.right(90)
                 self.pendown()
 
-                #2boxes
                 self.fillcolor("light grey")
                 self.begin_fill()
-                for i in range(4):
-                        self.forward(50)
-                        self.right(90)
-                self.forward(50)
                 for i in range(4):
                         self.forward(50)
                         self.right(90)
@@ -102,40 +93,15 @@ class Example1(turtle.Turtle):
                 self.left(90)
                 self.penup()
                 self.forward(25)
-                self.write("4",align="center",font=("Ariel",20,"normal"))
+                self.write("hello",align="center",font=("Ariel",20,"normal"))
                 self.left(90)
                 self.forward(70)
                 self.left(90)
-                self.forward(55)
-                self.left(90)
-
-                self.pendown()
-                self.forward(35)
-                self.right(90)
-                self.forward(25)
-                self.left(90)
-                for i in range(4):
-                        self.forward(50)
-                        self.left(90)
-                
-                self.forward(35)
-                self.left(90)
-                self.penup()
-                self.forward(25)
-                self.write("5",align="center",font=("Ariel",20,"normal"))
-                self.left(90)
-                self.forward(70)
-                self.left(90)
-                self.forward(55)
-                self.left(90)
-
-                self.right(90)
-                self.forward(45)
+                self.forward(105)
                 self.right(90)
                 self.forward(25)
 
-                #LOWERBOX
-                #arrow
+                #DOWNBOXES
                 self.right(170)
                 self.pendown()
                 self.forward(150)
@@ -147,26 +113,21 @@ class Example1(turtle.Turtle):
                 self.backward(15)
                 self.right(205)
                 self.penup()
-
-                #2box
                 self.left(80)
+
+                #twoboxes
                 self.forward(10)
                 self.pendown()
-                self.fillcolor("light grey")
                 self.begin_fill()
                 for i in range(4):
                         self.forward(50)
                         self.right(90)
-                for j in range(3):
-                        self.forward(100)
+                self.forward(50)
+                for i in range(4):
+                        self.forward(50)
                         self.right(90)
-                        for i in range(3):
-                                self.forward(50)
-                                self.right(90)
-                self.end_fill()
-                self.penup()
+                self.end_fill() 
 
-                #small boxes
                 self.forward(50)
                 self.right(90)
                 self.forward(50)
@@ -186,7 +147,7 @@ class Example1(turtle.Turtle):
                 self.left(90)
                 self.penup()
                 self.forward(25)
-                self.write("4",align="center",font=("Ariel",20,"normal"))
+                self.write("hello",align="center",font=("Ariel",20,"normal"))
                 self.left(90)
                 self.forward(70)
                 self.left(90)
@@ -194,6 +155,7 @@ class Example1(turtle.Turtle):
                 self.left(90)
 
                 self.pendown()
+
                 self.forward(35)
                 self.right(90)
                 self.forward(25)
@@ -205,60 +167,11 @@ class Example1(turtle.Turtle):
                 self.left(90)
                 self.penup()
                 self.forward(25)
-                self.write("5",align="center",font=("Ariel",20,"normal"))
+                self.write("hello",align="center",font=("Ariel",20,"normal"))
                 self.left(90)
                 self.forward(70)
                 self.left(90)
                 self.forward(55)
                 self.left(90)
 
-                self.pendown()
-                self.forward(35)
-                self.right(90)
-                self.forward(25)
-                self.left(90)
-                for i in range(4):
-                        self.forward(50)
-                        self.left(90)
-                self.forward(35)
-                self.left(90)
-                self.penup()
-                self.forward(25)
-                self.write("4",align="center",font=("Ariel",20,"normal"))
-                self.left(90)
-                self.forward(70)
-                self.left(90)
-                self.forward(55)
-                self.left(90)
-
-                self.pendown()
-                self.forward(35)
-                self.right(90)
-                self.forward(25)
-                self.left(90)
-                for i in range(4):
-                        self.forward(50)
-                        self.left(90)
-                self.forward(35)
-                self.left(90)
-                self.penup()
-                self.forward(25)
-                self.write("5",align="center",font=("Ariel",20,"normal"))
-                self.left(90)
-                self.forward(70)
-                self.left(90)
-                self.forward(55)
-                self.left(90)
-                
-
-               
-                      
-                      
-                      
-                      
-                     
-
-
-             
-                                          
 
