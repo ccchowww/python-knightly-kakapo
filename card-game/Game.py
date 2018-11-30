@@ -1,112 +1,142 @@
 import turtle
 from TurtleClasses import (
+    HpBar,
     BossHp,
     PlayerHp
 )
+import math
+import time
 
 # Setup turtle window
 wn = turtle.Screen()
-wn.bgcolor("#EEEEEC")
-wn.title("Object-based Turtles")
-wn.setup(1000,1000)
+# wn.bgcolor("#EEEEEC")
+wn.title("Card-Game")
+# wn.setup(width=0.7,height=0.9)
+wn.setup(width=0.7,height=0.95)
 
-PlayerHp = PlayerHp()
-BossHp = BossHp()
+wnWidth = wn.window_width()
+wnHeight = wn.window_height()
+wn.setworldcoordinates(0,wnHeight,wnWidth,0)
 
-PlayerHp.fullHp()
+BossHp = BossHp(wnWidth, wnHeight, wn)
 
-BossHp.fullHp()
+PlayerHp = PlayerHp(wnWidth, wnHeight, wn)
+
+# time.sleep(0.2)
+# BossHp.decrement(3)
+# time.sleep(0.2)
+# PlayerHp.decrement(4)
+# time.sleep(0.2)
+# BossHp.decrement(1)
+# time.sleep(0.2)
+# PlayerHp.decrement(1)
+
+# wn.register_shape("HpUnit", ((-4,-2),(-4,2),(4,2),(4,-2)))
+# wn.register_shape("HpUnit", ((-(wnHeight*0.018//2),-(wnWidth)),(-(wnHeight),(wnWidth)),(wnHeight,wnWidth),(wnHeight,-(wnWidth))))
+
+# PlayerHp = PlayerHp()
+# BossHp = BossHp()
+
+# PlayerHp.fullHp()
+
+# BossHp.fullHp()
 
 # havent found a way to pass variable from inside exec to outside scopes, without using global
-outputvar = "" # global outputvar
+a = "" # global a
 
 class Life():
     def __init__(self):
-        self.hp = 100
+        self.hp = 10
 
 class Player(Life):
     def __init__(self):
         Life.__init__(self)
-        print(self.hp, self)
+        # print(self.hp, self)
 
     def hitBoss(self, hitpoints):
-        BossHp.decrement(hitpoints)
+        BossHp.decrement(hitpoints, Boss.hp)
+        Boss.hp -= hitpoints
 
     def EndTurn(self):
         rawUserCode = userCode
         try:
-            # print(globals()) # outputvar and cards will be in <--
+            # print(globals()) # a and cards will be in <--
             exec(compile(rawUserCode, "<string>", "exec"), globals())
 
         except:
-            print("compile error, punish player")
-            boss.hitPlayer(25)
+            print("compile error, hit for 6")
+            Boss.hitPlayer(6)
         else:
-            spells.checkSpell()
+            Spells.checkSpell()
 
 class Boss(Life):
     def __init__(self):
         Life.__init__(self)
-        print(self.hp, self)
 
     def hitPlayer(self, hitpoints):
-        PlayerHp.decrement(hitpoints)
-
-# class CodeExecuter():
-#     def __init__(self):
-#         self.codeObject = "initial"
-
-#     def Execute(self, userCode):
-#         self.codeObject = compile(userCode, "<string>", "exec")
-#         print(globals())
-#         exec(self.codeObject, globals())
-#         # call output checker/ spells.checkspell()
+        PlayerHp.decrement(hitpoints, Player.hp)
+        Player.hp -= hitpoints
 
 class Spells():
     def __init__(self):
         self.atk1 = {
             "name": "attack spell 1",
             "requirement": "hello dog",
-            "hitpoints": 10
+            "hitpoints": 5
         }
 
     def checkSpell(self):
-        global outputvar
+        global a
 
-        if outputvar == self.atk1["requirement"]:
-            player.hitBoss(self.atk1["hitpoints"])
+        if a == self.atk1["requirement"]:
+            Player.hitBoss(self.atk1["hitpoints"])
             self.AttackSpell1()
 
         else:
             print("Invalid Spell Use!")
-            boss.hitPlayer(15)
+            Boss.hitPlayer(3)
 
     def AttackSpell1(self):
         print(self.atk1["name"])
         print("***woosh wooosh***")
 
 
-player = Player()
-boss = Boss()
+Player = Player()
+Boss = Boss()
 
-spells = Spells()
+Spells = Spells()
 
-userCode = ""
-buffer = []
-cards = ["helloo", "wurf", "dogge"]
-print("press enter to input another line, to end input, input only . and press enter")
-print("assign to outputvar")
-print("after ending input, focus turtle window, press r to end turn")
-print("cards =", cards)
+# turtle.listen()
+# turtle.onkey(Player.EndTurn, "r")
+
 while True:
-    print(">>>", end="")
-    line = input()
-    if line == ".":
+    userCode = ""
+    buffer = []
+    cards = ["helloo", "wurf", "dogge"]
+    print("cards =", cards)
+    print("requirement:", "\""+Spells.atk1["requirement"]+"\"")
+    print("assign spell requirement to variable a")
+    print("enter a line with only . to end input")
+    print("e.g( a = cards[1][1:3] + " " + cards[3][:4] <enter>)")
+    print(" . <enter>")
+    while True:
+        print(">>>", end="")
+        line = input()
+        if line == ".":
+            break
+        buffer.append(line)
+        userCode = "\n".join(buffer)
+    endTurn = input("Press Enter to end turn")
+    Player.EndTurn()
+    print("boss hp:",Boss.hp, "player hp:",Player.hp)
+    if (Boss.hp <= 0):
+        print("Player wins")
         break
-    buffer.append(line)
-    userCode = "\n".join(buffer)
+    if (Player.hp <= 0):
+        print("Boss wins")
+        break
 
-turtle.listen()
-turtle.onkey(player.EndTurn, "r")
+
+
 
 preventFallingOff = input("end of file\n")
