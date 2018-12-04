@@ -88,6 +88,7 @@ class Spells():
     def checkSpell(self):
         global a
 
+        print("Result: a =", a)
         if a == self.atk1["requirement"]:
             Player.hitBoss(self.atk1["hitpoints"])
             self.AttackSpell1()
@@ -117,7 +118,7 @@ while True:
     print("requirement:", "\""+Spells.atk1["requirement"]+"\"")
     print("assign spell requirement to variable a")
     print("enter a line with only . to end input")
-    print("e.g( a = cards[1][1:3] + " " + cards[3][:4] <enter>)")
+    print('e.g( a = cards[1][1:3] + " " + cards[3][:4] <enter>)')
     print(" . <enter>")
     while True:
         print(">>>", end="")
