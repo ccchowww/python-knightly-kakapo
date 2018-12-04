@@ -12,7 +12,7 @@ wn = turtle.Screen()
 # wn.bgcolor("#EEEEEC")
 wn.title("Card-Game")
 # wn.setup(width=0.7,height=0.9)
-wn.setup(width=0.7,height=0.95)
+wn.setup(width=0.7,height=0.95) #14:19
 
 wnWidth = wn.window_width()
 wnHeight = wn.window_height()
