@@ -53,6 +53,11 @@ Maybe it all gets handled by a function, then depending on the return of that fu
 the game
 Basically in an object dont use anotherObject's.method() if possible.
 
+##############################################################################
+Its very hard to do this unless we dont break them down into so many functions
+##############################################################################
+
+
     while True to get multi line user input code can also be in a function, along with ur anti-cheat idea.
 
     Spells i plan to use a list of dictionaries [{}, {}, {}]
