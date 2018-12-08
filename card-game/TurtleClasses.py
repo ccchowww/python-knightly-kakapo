@@ -2,157 +2,163 @@ import turtle
 import math
 import time
 
+"""
+Colour Palette:
+    BossHp:
+        HpUnit = #EB001B
+        Limiter = #BE0016
+
+        brightest to darkest
+        1. #FB001D
+        2. #EB001B
+        3. #BE0016
+        4. #940011
+        5. #64000C
+    PlayerHp:
+        HpUnit = #6BE400
+        Limiter = #438D00
+        
+        brightest to darkest
+        1. #78FE00
+        2. #75F800
+        3. #6BE400
+        4. #57B800
+        5. #438D00
+"""
+
+def ResizeScreen(width, height):
+    screenWidthUnit = width // 140
+    screenHeightUnit = height // 180
+
+    effectiveScreenWidth = screenWidthUnit * 140
+    effectiveScreenHeight = screenHeightUnit * 180
+
+    return (effectiveScreenWidth, effectiveScreenHeight, screenWidthUnit, screenHeightUnit)
+
 class HpBar(turtle.Turtle):
-    def __init__(self, width, height, screenObject):
+    def __init__(self, screenObject, width, height, widthUnit, heightUnit):
         turtle.Turtle.__init__(self)
 
+        self.hideturtle()
         self.penup()
         self.speed(0)
 
-        self.hpBarWidthUnit = width // 100
-        self.hpBarHeightUnit = height // 100
-        # print(self.hpBarWidthUnit, self.hpBarHeightUnit)
+        self.screenWidthUnit = widthUnit
+        self.screenHeightUnit = heightUnit
+        # print("effective screen size:", width, height)
 
+        self.hpUnitWidth = self.screenWidthUnit * 2
+        self.hpUnitHeight = self.screenHeightUnit * 6
+        self.hpUnitGap = self.screenWidthUnit
 
-        self.hpUnitWidth = self.hpBarWidthUnit * 5
-        self.hpUnitHeight = self.hpBarHeightUnit * 5
-        self.hpUnitGap = self.hpBarWidthUnit
-        # self.hpUnitGap = self.hpBarHeightUnit
-
+        # (y-axis, x-axis)
         screenObject.register_shape("HpUnit",
             (
             (0, 0),
-            (self.hpUnitWidth, 0),
-            (self.hpUnitWidth, self.hpUnitHeight),
-            (0, self.hpUnitHeight),
+            (self.screenHeightUnit*6, 0),
+            (self.screenHeightUnit*6, self.screenWidthUnit*2),
+            (0, self.screenWidthUnit*2),
             )
         )
-        self.shape("HpUnit")
+        screenObject.register_shape("Limit",
+            (
+            (0, 0),
+            (self.screenHeightUnit*6 + 4, 0),
+            (self.screenHeightUnit*6 + 4, 2),
+            (0, 2)
+            )
+        )
+
+    def decrement(self, units, currentHp):
+        if (units > currentHp):
+            hitpoints = currentHp
+        else:
+            hitpoints = units
+
+        # Times to flash hp units to be removed.
+        count = 2
+        while count > 0:
+            for i in range(hitpoints):
+                self.undo()
+                self.undo()
+            time.sleep(0.3)
+            for j in range(hitpoints):
+                self.stamp()
+                self.forward(self.hpUnitWidth + self.hpUnitGap)
+            time.sleep(0.1)
+            count -= 1
+
+        for i in range(hitpoints):
+            self.undo()
+            self.undo()
+
+    def increment(self, units, currentHp):
+        # Times to flash hp units to increment
+        count = 2
+        while count > 0:
+            for j in range(units):
+                self.stamp()
+                self.forward(self.hpUnitWidth + self.hpUnitGap)
+            time.sleep(0.1)
+            for i in range(units):
+                self.undo()
+                self.undo()
+            time.sleep(0.1)
+            count -= 1
+
+        for j in range(units):
+            self.stamp()
+            self.forward(self.hpUnitWidth + self.hpUnitGap)
 
 class BossHp(HpBar):
-    def __init__(self, width, height, screenObject):
-        # turtle.Turtle.__init__(self)
-        HpBar.__init__(self, width, height, screenObject)
+    def __init__(self, screenObject, width, height, widthUnit, heightUnit):
+        HpBar.__init__(self, screenObject, width, height, widthUnit, heightUnit)
 
-        # print(self.hpBarWidthUnit, self.hpBarHeightUnit)
-
-        self.hideturtle()
-        startPos = (self.hpBarWidthUnit*3, self.hpBarHeightUnit*2)
+        startPos = (self.screenWidthUnit, 0)
         self.setpos(startPos)
 
         self.color("#BE0016")
+        self.shape("Limit")
+        self.stamp()
+        self.forward(6)
 
-        for i in range(10):
+        self.sety(self.ycor() + 2)
+
+        self.shape("HpUnit")
+        self.color("#EB001B")
+        for i in range(30):
             self.stamp()
             self.forward(self.hpUnitWidth + self.hpUnitGap)
+        endLimit = self.clone()
+        endLimit.shape("Limit")
+        endLimit.color("#BE0016")
+        endLimit.sety(self.ycor() - 2)
+        endLimit.setx(self.xcor() - self.hpUnitGap + 4)
+        endLimit.stamp()
 
-    def fancyLine(self, xcoord, ycoord, units):
-        fancyLine = turtle.Turtle()
-
-        fancyLine.speed(0)
-        fancyLine.hideturtle()
-        fancyLine.penup()
-        fancyLine.color("#FB001D")
-        fancyLine.width(4)
-
-        fancyLine.setpos(xcoord - self.hpBarWidthUnit, ycoord - self.hpBarHeightUnit)
-
-        fancyLine.pendown()
-        fancyLine.setpos(fancyLine.xcor(), fancyLine.ycor() + 1*self.hpBarHeightUnit)
-        fancyLine.setpos(fancyLine.xcor(), fancyLine.ycor() - self.hpBarHeightUnit)
-        fancyLine.speed(5)
-        fancyLine.backward((self.hpUnitWidth + self.hpUnitGap)*units)
-        fancyLine.speed(0)
-        fancyLine.setpos(fancyLine.xcor(), fancyLine.ycor() + 1*self.hpBarHeightUnit)
-        fancyLine.setpos(fancyLine.xcor(), fancyLine.ycor() - self.hpBarHeightUnit)
-        return fancyLine
-
-    def decrement(self, units, currentHp):
-        if (units > currentHp):
-            hitpoints = currentHp
-        else:
-            hitpoints = units
-
-        redLine = BossHp.fancyLine(self, BossHp.xcor(self), BossHp.ycor(self), hitpoints)
-
-        count = 2
-        while count > 0:
-            for i in range(hitpoints):
-                self.undo()
-                self.undo()
-            time.sleep(0.3)
-            for j in range(hitpoints):
-                self.stamp()
-                self.forward(self.hpBarWidthUnit * 6)
-            time.sleep(0.1)
-            count -= 1
-
-        for i in range(hitpoints):
-            self.undo()
-            self.undo()
-
-        time.sleep(0.1)
-        redLine.clear()
 
 class PlayerHp(HpBar):
-    def __init__(self, width, height, screenObject):
-        HpBar.__init__(self, width, height, screenObject)
+    def __init__(self, screenObject, width, height, widthUnit, heightUnit):
+        HpBar.__init__(self, screenObject, width, height, widthUnit, heightUnit)
 
-        self.hideturtle()
-        startPos = (self.hpBarWidthUnit*3, self.hpBarHeightUnit*93)
+        startPos = (self.screenWidthUnit, height - self.hpUnitHeight - self.screenHeightUnit*2)
         self.setpos(startPos)
 
-        self.color("#6BE400")
+        self.shape("Limit")
+        self.color("#438D00")
+        self.stamp()
+        self.forward(6)
 
-        for i in range(10):
+        self.sety(self.ycor() + 2)
+
+        self.shape("HpUnit")
+        self.color("#6BE400")
+        for i in range(30):
             self.stamp()
             self.forward(self.hpUnitWidth + self.hpUnitGap)
-
-    def fancyLine(self, xcoord, ycoord, units):
-        fancyLine = turtle.Turtle()
-
-        fancyLine.speed(0)
-        fancyLine.hideturtle()
-        fancyLine.penup()
-        fancyLine.color("#428D00")
-        fancyLine.width(4)
-
-        fancyLine.setpos(xcoord - self.hpBarWidthUnit, ycoord - self.hpBarHeightUnit)
-
-        fancyLine.pendown()
-        fancyLine.setpos(fancyLine.xcor(), fancyLine.ycor() + 1*self.hpBarHeightUnit)
-        fancyLine.setpos(fancyLine.xcor(), fancyLine.ycor() - self.hpBarHeightUnit)
-        fancyLine.speed(5)
-        fancyLine.backward((self.hpUnitWidth + self.hpUnitGap)*units)
-        fancyLine.speed(0)
-        fancyLine.setpos(fancyLine.xcor(), fancyLine.ycor() + 1*self.hpBarHeightUnit)
-        fancyLine.setpos(fancyLine.xcor(), fancyLine.ycor() - self.hpBarHeightUnit)
-        return fancyLine
-
-
-    def decrement(self, units, currentHp):
-        if (units > currentHp):
-            hitpoints = currentHp
-        else:
-            hitpoints = units
-
-        redLine = PlayerHp.fancyLine(self, PlayerHp.xcor(self), PlayerHp.ycor(self), hitpoints)
-
-        count = 2
-        while count > 0:
-            for i in range(hitpoints):
-                self.undo()
-                self.undo()
-            time.sleep(0.3)
-            for j in range(hitpoints):
-                self.stamp()
-                self.forward(self.hpBarWidthUnit * 6)
-            time.sleep(0.1)
-            count -= 1
-
-        for i in range(hitpoints):
-            self.undo()
-            self.undo()
-
-        time.sleep(0.1)
-        redLine.clear()
+        endLimit = self.clone()
+        endLimit.shape("Limit")
+        endLimit.color("#438D00")
+        endLimit.sety(self.ycor() - 2)
+        endLimit.setx(self.xcor() - self.hpUnitGap + 4)
+        endLimit.stamp()
