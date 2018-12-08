@@ -55,6 +55,7 @@ Basically in an object dont use anotherObject's.method() if possible.
 
 ##############################################################################
 Its very hard to do this unless we dont break them down into so many functions
+gor gor show u easy way.
 ##############################################################################
 
 

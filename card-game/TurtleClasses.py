@@ -45,6 +45,16 @@ def ResizeScreen(width, height):
 
     return (effectiveScreenWidth, effectiveScreenHeight, screenWidthUnit, screenHeightUnit)
 
+class SpellList(turtle.Turtle):
+    def __init__(self, width, height, spellDictionary):
+        turtle.Turtle.__init__(self)
+
+        self.hideturtle()
+        self.penup()
+        self.speed(0)
+
+# width and height only occasionally needed for placement, in HpBar, only used by PlayerHp to position
+#   off bottom edge of window
 class HpBar(turtle.Turtle):
     def __init__(self, screenObject, width, height, widthUnit, heightUnit):
         turtle.Turtle.__init__(self)
@@ -55,7 +65,6 @@ class HpBar(turtle.Turtle):
 
         self.screenWidthUnit = widthUnit
         self.screenHeightUnit = heightUnit
-        # print("effective screen size:", width, height)
 
         self.hpUnitWidth = self.screenWidthUnit * 2
         self.hpUnitHeight = self.screenHeightUnit * 6

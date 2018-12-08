@@ -68,8 +68,18 @@ def EndTurn(a, boss, player):
             hitPlayer(player, 3)
 
 
-Spells = [{"a" : "", "cards": [], "requirement": "hello dog", "hitpoints": 5},
-{"a": [1, 2], "cards": [], "requirement": [1, 2, 3], "hitpoints": 5}]
+Spells = [
+    {
+        "a" : "", "cards": [],
+        "requirement": "hello dog",
+        "hitpoints": 5
+    },
+    {
+        "a": [1, 2], "cards": [],
+        "requirement": [1, 2, 3],
+        "hitpoints": 5
+    },
+]
 
 # turtle.listen()
 # turtle.onkey(Player.EndTurn, "r")
