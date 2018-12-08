@@ -17,13 +17,23 @@ Colour Palette:
     PlayerHp:
         HpUnit = #6BE400
         Limiter = #438D00
-        
+
         brightest to darkest
         1. #78FE00
         2. #75F800
         3. #6BE400
         4. #57B800
         5. #438D00
+    Spell List
+        Borders = 
+        Text = 
+    
+        brightest to darkest
+        1. B027FC
+        2. A708FF
+        3. 9400E5
+        4. 6D00A8
+        5. 560085
 """
 
 def ResizeScreen(width, height):
