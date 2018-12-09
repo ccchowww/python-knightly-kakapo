@@ -4,7 +4,8 @@ from TurtleClasses import (
     ResizeScreen,
     HpBar,
     BossHp,
-    PlayerHp
+    PlayerHp,
+    SpellList
 )
 import time
 import copy
@@ -46,9 +47,10 @@ PlayerCurrentHp = 30
 
 Spells = [
     {
-        "name": "Lvl 1 - Strings",
+        "name": "Strings",
+        "level": 1,
         "base": "",
-        "baseType": "empty string",
+        "baseDescription": "empty string",
         "requirement": "spongebob",
         "cards": ("sponge", "bob"),
         "suggestedMethods": ["+"],
@@ -56,58 +58,132 @@ Spells = [
         "damageOnFail": 2
     },
     {
-        "name": "Lvl 1 - Lists",
+        "name": "Lists - 1",
+        "level": 1,
         "base": ["sea"],
-        "baseType": "list, 1 element",
+        "baseDescription": "list, 1 element",
         "requirement": ["pineapple", "under the", "sea"],
         "cards": ("pineapple", "under the"),
         "damageOnSuccess": 6,
         "damageOnFail": 2
     },
     {
-        "name": "Lvl 1 - Tuples",
-        "base": "",
-        "baseType": "empty string",
-        "requirement": ("patrick", "starfish"),
-        "cards": ("patrick", "starfish"),
+        "name": "Lists - 2",
+        "level": 1,
+        "base": ["sea"],
+        "baseDescription": "list, 1 element",
+        "requirement": ["pineapple", 5, "sea"],
+        "cards": ("pineapple", "under the", 5),
         "damageOnSuccess": 6,
         "damageOnFail": 2
     },
     {
-        "name": "Lvl 2 - Tuples and Lists",
+        "name": "Tuples",
+        "level": 1,
+        "base": "",
+        "baseDescription": "empty string",
+        "requirement": ("patrick", "starfish"),
+        "cards": ("patrick", "starfish", ["bikini", "bottom"]),
+        "damageOnSuccess": 6,
+        "damageOnFail": 2
+    },
+    {
+        "name": "Tuples and Lists",
+        "level": 2,
         "base": [],
-        "baseType": "empty list",
+        "baseDescription": "empty list",
         "requirement": [("patrick", "starfish"), "is a hoe"],
         "cards": (("patrick", "starfish"), "is a hoe"),
+        "damageOnSuccess": 8,
+        "damageOnFail": 2
+    },
+    {
+        "name": "List Looping",
+        "level": 2,
+        "base": ["spongebob","round","pants"],
+        "baseDescription": "list, 3 elements",
+        "requirement": ["spongebob", "square", "pants"],
+        "cards": ("square", "bottom"),
         "damageOnSuccess": 8,
         "damageOnFail": 2
     }
 ]
 
+# get highest level spell in Spells list
+# print(max([spell["level"] for spell in Spells]))
+
+selectedLevelSpells = []
 selectedSpell = {}
 codingFail = False
 codingSuccess = False
 
-gameState = "spellselection"
+gameState = "levelselection"
 # cast = "initial"
 
 while True:
-    if gameState == "spellselection":
-        while gameState == "spellselection":
-            selectSpell = int(input("input spell index: "))
-            for i in range(len(Spells)):
-                if Spells[i] == Spells[selectSpell]:
-                    selectedSpell = copy.deepcopy(Spells[selectSpell])
-                    # cast = selectedSpell["base"]
+    if gameState == "levelselection":
+        while gameState == "levelselection":
+            selectLevel = input("input level")
+            if selectLevel.isdigit():
+                if int(selectLevel) > 0 and int(selectLevel) <= max([spell["level"] for spell in Spells]):
+                    print("Level", selectLevel, "selected!")
+                    selectedLevel = int(selectLevel)
+                    displaySpellsByLevel = SpellList(wn, newScreenWidth, newScreenHeight, newScreen[2], newScreen[3], Spells, selectedLevel)
+                    for spell in Spells:
+                        if spell["level"] == selectedLevel:
+                            selectedLevelSpells.append(spell)
 
-                    gameState = "getplayerinput"
+                    gameState = "spellselection"
+                else:
+                    print("invalid level")
+            else:
+                print("level is an integer")
+
+    elif gameState == "spellselection":
+        while gameState == "spellselection":
+            selectSpell = input("input spell index: ")
+            if selectSpell.isdigit():
+                selectSpell = int(selectSpell)
+                if selectSpell >= 0 and selectSpell <= (len(selectedLevelSpells) - 1):
+                    for i in range(len(selectedLevelSpells)):
+                        if selectedLevelSpells[i] == selectedLevelSpells[selectSpell]:
+                            selectedSpell = copy.deepcopy(selectedLevelSpells[selectSpell])
+
+                            if type(selectedSpell["requirement"]) is str:
+                                playerGoal = '"' + selectedSpell["requirement"] + '"'
+                            else:
+                                playerGoal = str(selectedSpell["requirement"])
+                            if type(selectedSpell["base"]) is str:
+                                playerBaseCast = '"' + selectedSpell["base"] + '"'
+                            else:
+                                playerBaseCast = str(selectedSpell["base"])
+
+                            print("---")
+                            print("Use Tab or 4 spaces to indent your code")
+                            print("End code block by entering a line containing only '.'")
+                            print("Unfortunately, arrow keys don't work to move your cursor.")
+                            print("---")
+                            print("  If you want to write a new code block, end this one")
+                            print("then enter anything other than 'y' when prompted.")
+                            print("---")
+                            print("Write a block of code to make:")
+                            print("  cast =", playerGoal)
+                            print("---")
+                            print("Currently,")
+                            print("  cast =", playerBaseCast)
+
+                            gameState = "getplayerinput"
+                else:
+                    print("invalid spell index")
+            else:
+                print("spell index is an integer")
+
 
     elif gameState == "getplayerinput":
-        print(selectedSpell["name"])
-        print(selectedSpell["base"])
-        print(selectedSpell["requirement"])
-        print("cards:", selectedSpell["cards"])
-        numberOfCards = len(selectedSpell["cards"])
+        # print(selectedSpell["name"])
+        # print(selectedSpell["base"])
+        # print(selectedSpell["requirement"])
+        # print("cards:", selectedSpell["cards"])
 
         cast = selectedSpell["base"]
         userCode = "initial"
@@ -116,14 +192,17 @@ while True:
             print(">>>", end="")
             line = input()
             if line == ".":
-                break
-            # for i in range(numberOfCards):
-            #     if "c" + str(i) in line:
-            #         line = line.replace("c"+str(i), selectedSpell["cards"][i])
-            # print(line)
-            buffer.append(line)
-            # userCode = "\n".join(buffer)
-        input("Press Enter to end turn")
+                userChoice = input("To enter new code block, just press Enter\nTo confirm, input 'y' and press Enter\n>>> ")
+                if userChoice == "y":
+                    break
+                else:
+                    line = "retry"
+                    print("Previously entered code block removed.")
+            if line != "retry":
+                buffer.append(line)
+            else:
+                buffer = []
+        # input("Press Enter to end turn.")
 
         for i in range(len(buffer)):
             if str(selectedSpell["requirement"]) in buffer[i]:
@@ -133,7 +212,8 @@ while True:
 
         userCode = "\n".join(buffer)
 
-        print("end of getplayerinput",userCode)
+        print("end of getplayerinput, printing userCode and cast")
+        print(userCode)
         print(cast)
         gameState = "checkplayerinput"
 
@@ -163,7 +243,8 @@ while True:
                     codingFail = True
                     print("fail in try-else-if block")
 
-        print("end of checkplayerinput >>>", userCode)
+        print("end of checkplayerinput, printing userCode and cast")
+        print(userCode)
         print(cast)
         gameState = "castspells"
 

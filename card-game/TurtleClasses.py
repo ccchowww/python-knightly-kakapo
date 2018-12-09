@@ -34,6 +34,15 @@ Colour Palette:
         3. 9400E5
         4. 6D00A8
         5. 560085
+
+Object sizes on screen:
+    Hpbars:
+        Boss:
+            width 0 - 93 screenWidthUnit
+            height 0 - 6 screenHeightUnit + 4
+        Player:
+            width 0 - 93 screenWidthUnit
+            height 172 - 178 screenheightunit + 4
 """
 
 def ResizeScreen(width, height):
@@ -45,26 +54,137 @@ def ResizeScreen(width, height):
 
     return (effectiveScreenWidth, effectiveScreenHeight, screenWidthUnit, screenHeightUnit)
 
-class SpellList(turtle.Turtle):
-    def __init__(self, width, height, spellDictionary):
+class ScreenUnits():
+    def __init__(self, screenWidth, screenHeight, widthUnit, heightUnit):
+        self.screenWidthUnit = widthUnit
+        self.screenHeightUnit = heightUnit
+        self.screenWidth = screenWidth
+        self.screenHeight = screenHeight
+
+class SpellList(turtle.Turtle, ScreenUnits):
+    def __init__(self, screenObject, width, height, widthUnit, heightUnit, spellDictionary, chosenLevel):
         turtle.Turtle.__init__(self)
+        ScreenUnits.__init__(self, width, height, widthUnit, heightUnit)
 
         self.hideturtle()
         self.penup()
         self.speed(0)
+
+        self.spellsToShow = []
+
+        for spell in spellDictionary:
+            for field in spell:
+                if field == "level":
+                    if spell[field] == chosenLevel:
+                        self.spellsToShow.append(spell)
+
+        startPos = (self.screenWidthUnit*95, self.screenHeightUnit*6 + 4)
+        self.setpos(startPos)
+
+        screenObject.register_shape("SpellSeparator",
+            (
+            (0,0),
+            (self.screenWidthUnit,0),
+            (self.screenWidthUnit,self.screenHeightUnit*162),
+            (0,self.screenHeightUnit*162)
+            )
+        )
+        # screenObject.register_shape("SpellSectionSeparator",
+        #     (
+        #     (-self.screenWidthUnit*6,-self.screenHeightUnit*2),
+        #     (self.screenWidthUnit*7,-self.screenHeightUnit*2),
+        #     (self.screenWidthUnit*7,math.floor(-self.screenHeightUnit*2.5)),
+        #     (-self.screenWidthUnit*6,math.floor(-self.screenHeightUnit*2.5))
+        #     )
+        # )
+
+        # Font sizes, biggest to smallest
+        self.fontHeader = math.floor(self.screenWidthUnit*2.5)
+        self.fontH1 = math.floor(self.screenWidthUnit*2.0)
+        self.fontH2 = math.floor(self.screenWidthUnit*1.8)
+        self.fontH3 = math.floor(self.screenWidthUnit*1.6)
+        self.fontH4 = math.floor(self.screenWidthUnit*1.4)
+
+        self.shape("SpellSeparator")
+        self.color("#6D00A8")
+
+        # stamp separator
+        self.setheading(90)
+        self.stamp()
+
+        spellsHeaderPos = (self.screenWidthUnit*99, self.screenHeightUnit*6)
+        self.setpos(spellsHeaderPos)
+        self.write("Level: "+str(self.spellsToShow[0]["level"]), font=("Arial", self.fontHeader, "bold"))
+        self.setpos(self.xcor() + self.screenWidthUnit*2, self.ycor() + self.screenHeightUnit*3)
+
+        spellListStartPos = (self.screenWidthUnit*97, self.screenHeightUnit*7 + (self.screenHeightUnit*6 + 4))
+        self.setpos(spellListStartPos)
+
+        self.shape("triangle")
+        self.shapesize(0.6,0.6,1)
+        self.setheading(0)
+
+        for i in range(len(self.spellsToShow)):
+            spellIndex = str(i)
+            if type(self.spellsToShow[i]["base"]) is str:
+                spellBase = '"' + self.spellsToShow[i]["base"] + '"'
+            else:
+                spellBase = str(self.spellsToShow[i]["base"])
+            if type(self.spellsToShow[i]["requirement"]) is str:
+                spellRequirement = '"' + self.spellsToShow[i]["requirement"] + '"'
+            else:
+                spellRequirement = str(self.spellsToShow[i]["requirement"])
+
+            spellCards = {}
+            for j in range(len(self.spellsToShow[i]["cards"])):
+                if type(self.spellsToShow[i]["cards"][j]) is str:
+                    spellCards["c"+str(j)] = '"' + self.spellsToShow[i]["cards"][j] + '"'
+                else:
+                    spellCards["c"+str(j)] = self.spellsToShow[i]["cards"][j]
+
+            # Stamp arrow beside spell index
+            self.color("#6D00A8")
+            self.setpos(self.xcor() - self.screenWidthUnit*2, self.ycor() - self.screenHeightUnit*3)
+            self.stamp()
+            self.setpos(self.xcor() + self.screenWidthUnit*2, self.ycor() + self.screenHeightUnit*3)
+            self.color("#9400E5")
+            self.write("Spell: " + spellIndex, font=("Arial", self.fontH2, "bold"))
+            self.setpos(self.xcor(), self.ycor() + self.screenHeightUnit*6)
+
+            self.write("Goal : " + spellRequirement, font=("Arial", self.fontH2, "bold"))
+            self.setpos(self.xcor(), self.ycor() + self.screenHeightUnit*6)
+
+            self.write("Start : " + spellBase, font=("Arial", self.fontH2, "normal"))
+            self.setpos(self.xcor() + self.screenWidthUnit*2, self.ycor() + self.screenHeightUnit*6)
+
+            self.write("Cards :", font=("Arial", self.fontH2, "normal"))
+            self.setpos(self.xcor(), self.ycor() + self.screenHeightUnit*5)
+
+            self.setpos(self.xcor() + self.screenWidthUnit*3, self.ycor())
+            for card in spellCards:
+                self.write(card + " | "+ str(spellCards[card]), font=("Arial", self.fontH2, "normal"))
+                self.setpos(self.xcor(), self.ycor() + self.screenHeightUnit*5)
+
+            # self.color("#b567e0")
+            # self.stamp()
+            # self.color("#6D00A8")
+            self.setpos(self.xcor() - self.screenWidthUnit*5, self.ycor() + self.screenHeightUnit*4)
+            # self.setpos(self.xcor(), self.ycor() + self.screenHeightUnit*4)
+
+            # self.write("Description: " + spellBaseDescription, font=("Arial", self.fontH4, "normal"))
+            # self.setpos(self.xcor() - self.screenWidthUnit*2, self.ycor() + self.screenHeightUnit*4)
+
 
 # width and height only occasionally needed for placement, in HpBar, only used by PlayerHp to position
 #   off bottom edge of window
-class HpBar(turtle.Turtle):
+class HpBar(turtle.Turtle, ScreenUnits):
     def __init__(self, screenObject, width, height, widthUnit, heightUnit):
         turtle.Turtle.__init__(self)
+        ScreenUnits.__init__(self, width, height, widthUnit, heightUnit)
 
         self.hideturtle()
         self.penup()
         self.speed(0)
-
-        self.screenWidthUnit = widthUnit
-        self.screenHeightUnit = heightUnit
 
         self.hpUnitWidth = self.screenWidthUnit * 2
         self.hpUnitHeight = self.screenHeightUnit * 6
