@@ -61,6 +61,47 @@ class ScreenUnits():
         self.screenWidth = screenWidth
         self.screenHeight = screenHeight
 
+class PlayerModel(turtle.Turtle, ScreenUnits):
+    def __init__(self, wn, width, height, widthUnit, heightUnit):
+        turtle.Turtle.__init__(self)
+        ScreenUnits.__init__(self, width, height, widthUnit, heightUnit)
+
+        self.hideturtle()
+        self.penup()
+        self.speed(0)
+
+        wn.register_shape("./images/player.gif")
+
+        self.shape("./images/player.gif")
+
+        self.setpos(self.screenWidthUnit*20, height - self.screenHeightUnit*40)
+
+        self.showturtle()
+        self.speed(2)
+        # self.goto(self.xcor()-20, self.ycor())
+        # self.goto(self.xcor()+40, self.ycor())
+
+class BossModel(turtle.Turtle, ScreenUnits):
+    def __init__(self, wn, width, height, widthUnit, heightUnit):
+        turtle.Turtle.__init__(self)
+        ScreenUnits.__init__(self, width, height, widthUnit, heightUnit)
+
+        self.hideturtle()
+        self.penup()
+        self.speed(0)
+
+        wn.register_shape("./images/boss.gif")
+
+        self.shape("./images/boss.gif")
+
+        self.setpos(self.screenWidthUnit*71, self.screenHeightUnit*43)
+
+        self.showturtle()
+        self.speed(2)
+        # self.goto(self.xcor()-20, self.ycor())
+        # self.goto(self.xcor()+40, self.ycor())
+        
+
 class SpellList(turtle.Turtle, ScreenUnits):
     def __init__(self, screenObject, width, height, widthUnit, heightUnit, spellDictionary, chosenLevel):
         turtle.Turtle.__init__(self)
@@ -220,7 +261,7 @@ class HpBar(turtle.Turtle, ScreenUnits):
             for i in range(hitpoints):
                 self.undo()
                 self.undo()
-            time.sleep(0.3)
+            time.sleep(0.2)
             for j in range(hitpoints):
                 self.stamp()
                 self.forward(self.hpUnitWidth + self.hpUnitGap)

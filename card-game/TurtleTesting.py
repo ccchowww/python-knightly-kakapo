@@ -5,14 +5,16 @@ from TurtleClasses import (
     HpBar,
     BossHp,
     PlayerHp,
-    SpellList
+    SpellList,
+    PlayerModel,
+    BossModel
 )
 import time
 import copy
 
 # Setup turtle window
 wn = turtle.Screen()
-# wn.bgcolor("#EEEEEC")
+wn.bgcolor("#ffffff")
 wn.title("Card Game")
 # Set window to percentages to get pixels
 wn.setup(width=0.7,height=0.9) #7:9
@@ -119,6 +121,9 @@ codingSuccess = False
 
 gameState = "levelselection"
 # cast = "initial"
+
+playerChar = PlayerModel(wn, newScreenWidth, newScreenHeight, newScreen[2], newScreen[3])
+bossChar = BossModel(wn, newScreenWidth, newScreenHeight, newScreen[2], newScreen[3])
 
 while True:
     if gameState == "levelselection":
