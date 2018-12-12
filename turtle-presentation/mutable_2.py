@@ -1,5 +1,6 @@
 import turtle
 
+
 class Example1(turtle.Turtle):
         def __init__(self):
                 turtle.Turtle.__init__(self)
@@ -249,7 +250,19 @@ class Example1(turtle.Turtle):
                 self.left(90)
                 self.forward(55)
                 self.left(90)
-                
+
+Ex1 = Example1()
+
+while True:
+    playerInput = input("exit, ex1")
+    if playerInput == "exit":
+        print("exiting game")
+        break
+    elif playerInput == "ex1":
+        Ex1.clear()
+        Ex1.drawEx1() # Units to decrement hp by
+
+
 
                
                       
