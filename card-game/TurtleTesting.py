@@ -108,6 +108,46 @@ Spells = [
         "cards": ("square", "bottom"),
         "damageOnSuccess": 8,
         "damageOnFail": 2
+    },
+    {
+        "level": 2,
+        "base": "spongebab",
+        "requirement": "spongebob",
+        "cards": ("o", "b"),
+        "damageOnSuccess": 8,
+        "damageOnFail": 2
+    },
+    {
+        "level": 3,
+        "base": [("sponge", "bob"), "pants"],
+        "requirement": [("spongebob"), "squarepants"],
+        "cards": ("square"),
+        "damageOnSuccess": 10,
+        "damageOnFail": 2
+    },
+    {
+        "level": 3,
+        "base": [],
+        "requirement": ["s", "sp", "spo", "spon", "spong", "sponge"],
+        "cards": ("s", "sponge", "sp"),
+        "damageOnSuccess": 10,
+        "damageOnFail": 2
+    },
+    {
+        "level": 3,
+        "base": (("square"), ["pants"], "bab"),
+        "requirement": ("bob", ("squarepants"), ["pants"]),
+        "cards": ("o", "ob"),
+        "damageOnSuccess": 10,
+        "damageOnFail": 2
+    },
+    {
+        "level": 3,
+        "base": [("sponge", 1), ("bob", 2), ("sponge", 3), ("sponge", 4), ("sponge", 5)],
+        "requirement": ["bob", "spongesponge", "bobbobbob", "bobbobbobbob", "bobbobbobbobbob"],
+        "cards": ("sponge", "bob"),
+        "damageOnSuccess": 10,
+        "damageOnFail": 2
     }
 ]
 
