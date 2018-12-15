@@ -111,6 +111,14 @@ Spells = [
     },
     {
         "level": 2,
+        "base": ("sponge"),
+        "requirement": ("spg", "one"),
+        "cards" : ("s", "p", "g"),
+        "damageOnSuccess": 8,
+        "damageOnFail": 2
+    },
+    {
+        "level": 2,
         "base": "spongebab",
         "requirement": "spongebob",
         "cards": ("o", "b"),
