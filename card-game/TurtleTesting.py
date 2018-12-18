@@ -206,7 +206,7 @@ while True:
                             print("---")
                             print("Use Tab or 4 spaces to indent your code")
                             print("End code block by entering a line containing only '.'")
-                            print("Unfortunately, arrow keys don't work to move your cursor.")
+                            print("Arrow keys don't work to move your cursor.")
                             print("---")
                             print("  If you want to write a new code block, end this one")
                             print("then enter anything other than 'y' when prompted.")
