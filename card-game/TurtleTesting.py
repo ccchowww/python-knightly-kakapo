@@ -136,7 +136,7 @@ Spells = [
     {
         "level": 3,
         "base": [],
-        "requirement": ["s", "sp", "spo", "spon", "spong", "sponge"],
+        "requirement": ["s", "sp", "spo", "spon", "spong"],
         "cards": ("s", "sponge", "sp"),
         "damageOnSuccess": 10,
         "damageOnFail": 2
@@ -151,9 +151,9 @@ Spells = [
     },
     {
         "level": 3,
-        "base": [("sponge", 1), ("bob", 2), ("sponge", 3), ("sponge", 4), ("sponge", 5)],
-        "requirement": ["bob", "spongesponge", "bobbobbob", "bobbobbobbob", "bobbobbobbobbob"],
-        "cards": ("sponge", "bob"),
+        "base": [("s", 1), ("b", 2), ("s", 3), ("s", 4), ("s", 5)],
+        "requirement": ["b", "ss", "bbb", "bbbb", "bbbbb"],
+        "cards": ("s", "b"),
         "damageOnSuccess": 10,
         "damageOnFail": 2
     }
