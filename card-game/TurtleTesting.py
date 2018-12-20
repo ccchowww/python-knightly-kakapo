@@ -258,7 +258,7 @@ while True:
         # input("Press Enter to end turn.")
 
         for i in range(len(buffer)):
-            if str(selectedSpell["requirement"]) in buffer[i]:
+            if str(selectedSpell["requirement"]) in buffer[i] or '"' in buffer[i] or "'" in buffer[i]:
                 codingFail = True
                 print("fail in getplayerinput")
                 print("cards not used")
