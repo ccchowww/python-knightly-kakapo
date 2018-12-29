@@ -301,11 +301,11 @@ def list_example(x, y):
     # Header 1
     t.up()
     t.goto(-widthUnit*31, heightUnit*27)
-    t.write("e.g. List", align="left", font=("Ariel", fontH3, "normal"))
+    t.write("e.g. List", align="left", font=("Arial", fontH3, "normal"))
 
     # Header 2
     t.goto(-widthUnit*31, heightUnit*15)
-    t.write("X = [10] \nX[0] = 20", align="left", font=("Ariel", fontH4, "normal"))
+    t.write("X = [10] \nX[0] = 20", align="left", font=("Arial", fontH4, "normal"))
 
     # X's square
     t.begin_fill()
@@ -321,7 +321,7 @@ def list_example(x, y):
     # X
     t.goto(-widthUnit*25, -heightUnit*2)
     t.down()
-    t.write("X", align="left", font=("Ariel", fontH4, "normal"))
+    t.write("X", align="left", font=("Arial", fontH4, "normal"))
     t.up()
 
     # Forward Line
@@ -353,7 +353,7 @@ def list_example(x, y):
     t.goto(-widthUnit*4, heightUnit*8)
     t.pencolor("black")
     t.width(1)
-    t.write("ID", align="left", font=("Ariel", fontH4, "normal"))
+    t.write("ID", align="left", font=("Arial", fontH4, "normal"))
     t.up()
 
     # Split Line(Up)
@@ -388,7 +388,7 @@ def list_example(x, y):
     t.pencolor("black")
     t.width(1)
     t.goto(widthUnit*14, heightUnit*13)
-    t.write(10, align="left", font=("Ariel", fontH4, "normal"))
+    t.write(10, align="left", font=("Arial", fontH4, "normal"))
     t.up()
 
     # Dotted Split Line(Down)
@@ -420,7 +420,7 @@ def list_example(x, y):
     t.pencolor("black")
     t.width(1)
     t.goto(widthUnit*14, -heightUnit*15)
-    t.write(20, align="left", font=("Ariel", fontH4, "normal"))
+    t.write(20, align="left", font=("Arial", fontH4, "normal"))
     t.fillcolor("black")
 
     t.up()
