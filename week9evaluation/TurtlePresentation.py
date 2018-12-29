@@ -202,7 +202,7 @@ def string_example(x, y):
     t.color("red")
     t.down()
     t.rt(30)
-    for i in range(19):
+    for i in range(17):
         t.up()
         t.fd(heightUnit)
         t.down()
@@ -254,7 +254,7 @@ def string_example(x, y):
     t.color("red")
     t.down()
     t.width(5)
-    t.forward(heightUnit*60)
+    t.forward(heightUnit*57)
     t.up()
 
     # cross ID 1
@@ -272,7 +272,7 @@ def string_example(x, y):
     t.width(3)
     t.down()
     t.rt(30)
-    for i in range(19):
+    for i in range(17):
         t.fd(heightUnit*2)
     t.up()
     # t.goto(-widthUnit*2, -heightUnit)
@@ -330,7 +330,7 @@ def list_example(x, y):
     t.rt(90)
     t.fd(heightUnit*12)
     t.down()
-    t.fd(heightUnit*20)
+    t.fd(heightUnit*18)
     t.lt(160)
     t.fd(heightUnit*4)
     t.fd(-heightUnit*4)
@@ -377,7 +377,7 @@ def list_example(x, y):
     # 10's Square
     t.pencolor("blue")
     t.width(5)
-    t.goto(heightUnit*22, heightUnit*22)
+    t.goto(widthUnit*12, heightUnit*22)
     t.down()
     for i in range(4):
         t.fd(heightUnit*15)
@@ -409,7 +409,7 @@ def list_example(x, y):
     # 20's Square
     t.pencolor("red")
     t.width(5)
-    t.goto(widthUnit*11, -heightUnit*5)
+    t.goto(widthUnit*12, -heightUnit*5)
     t.down()
     for i in range(4):
         t.fd(heightUnit*15)
@@ -433,7 +433,7 @@ def ID_function(x, y):
     t.clear()
     t.up()
     t.goto(0, widthUnit*25)
-    t.setpos(-widthUnit*15, heightUnit*15)
+    t.setpos(-widthUnit*30, heightUnit*16)
     t.down()
     t.write("The id() function is used to return \n"
             "a unique address of an object. \n"
@@ -444,7 +444,7 @@ def ID_function(x, y):
             , align="left", font=("Arial", fontH5, "bold"))
 
     t.penup()
-    t.setpos(-widthUnit*22, -heightUnit*30)
+    t.setpos(-widthUnit*30, -heightUnit*30)
     t.pencolor("red")
     t.write(">>> list=[3,6]\n"
             ">>> print(id(list)) \n"
@@ -462,7 +462,7 @@ def ID_function(x, y):
             "unchanged \n"
             , align="left", font=("Arial", fontH5, "italic"))
 
-    t.setpos(widthUnit*2, -heightUnit*27)
+    t.setpos(-widthUnit*2, -heightUnit*27)
     t.pencolor("blue")
     t.write(">>> integer=3\n"
             ">>> print(id(integer)) \n"
