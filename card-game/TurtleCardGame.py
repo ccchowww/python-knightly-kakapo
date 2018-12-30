@@ -3,49 +3,37 @@ import turtle
 from TurtleClasses import (
     ResizeScreen,
     HpBar,
-    BossHp,
-    PlayerHp,
+    BossHealth,
+    PlayerHealth,
     SpellList,
     PlayerModel,
-    BossModel
+    BossModel,
+    DrawSpell
 )
 import time
 import copy
 
-# Setup turtle window
-wn = turtle.Screen()
-wn.bgcolor("#ffffff")
-wn.title("Card Game")
-# Set window to percentages to get pixels
-wn.setup(width=0.7,height=0.9) #7:9
-wnWidth = wn.window_width()
-wnHeight = wn.window_height()
+# # Setup turtle window
+# wn = turtle.Screen()
+# wn.title("Card Game")
+# # Set window to percentages to get pixels
+# wn.setup(width=0.7,height=0.9) #7:9
+# wnWidth = wn.window_width()
+# wnHeight = wn.window_height()
 
-# Get new dimensions that will be compatible with any user's screen.
-newScreen = ResizeScreen(wnWidth, wnHeight)
+# # Get new dimensions that will be compatible with any user's screen.
+# newScreen = ResizeScreen(wnWidth, wnHeight)
 
-# return from ResizeScreen:
-#   newScreen = (effectiveWidth, effectiveHeight, widthUnit, heightUnit)
-newScreenWidth = newScreen[0]
-newScreenHeight = newScreen[1]
-
-# Convert window to compatible dimensions
-wn.setup(width=newScreenWidth,height=newScreenHeight)
-# Set coords, coords start at Top Left, end at Bottom Right
-wn.setworldcoordinates(0,newScreenHeight,newScreenWidth,0)
-
-# screen width: 0 - 90 units used by hp bar
-BossHp = BossHp(wn, newScreenWidth, newScreenHeight, newScreen[2], newScreen[3])
-BossCurrentHp = 30
-
-PlayerHp = PlayerHp(wn, newScreenWidth, newScreenHeight, newScreen[2], newScreen[3])
-PlayerCurrentHp = 30
-
-# time.sleep(0.3)
-# BossHp.decrement(2, BossCurrentHp)
-
-# class GameData():
-#     def __init__(self,)
+# # return from ResizeScreen:
+# #   newScreen = (effectiveWidth, effectiveHeight, widthUnit, heightUnit)
+# newScreenWidth = newScreen[0]
+# newScreenHeight = newScreen[1]
+# print(newScreenWidth, newScreenHeight, newScreen[2], newScreen[3])
+# # Convert window to compatible dimensions
+# wn.setup(width=newScreenWidth,height=newScreenHeight)
+# # Set coords, coords start at Top Left, end at Bottom Right
+# wn.setworldcoordinates(0,newScreenHeight,newScreenWidth,0)
+# wn.bgcolor("#f7f7f7")
 
 Spells = [
     {
@@ -56,8 +44,8 @@ Spells = [
         "requirement": "spongebob",
         "cards": ("sponge", "bob"),
         "suggestedMethods": ["+"],
-        "damageOnSuccess": 6,
-        "damageOnFail": 2
+        "damageOnSuccess": 8,
+        "damageOnFail": 10
     },
     {
         "name": "Lists - 1",
@@ -96,8 +84,8 @@ Spells = [
         "baseDescription": "list, 3 elements",
         "requirement": ["spongebob", "square", "pants"],
         "cards": ("square", "bottom"),
-        "damageOnSuccess": 8,
-        "damageOnFail": 2
+        "damageOnSuccess": 10,
+        "damageOnFail": 14
     },
     {
         "level": 2,
@@ -111,9 +99,9 @@ Spells = [
         "level": 3,
         "base": [("sponge", "bob"), "pants"],
         "requirement": [("spongebob"), "squarepants"],
-        "cards": ("square"),
-        "damageOnSuccess": 10,
-        "damageOnFail": 2
+        "cards": ("square"), # each char in gets separated into cards if only 1 element in tuple, unless thats intended
+        "damageOnSuccess": 15,
+        "damageOnFail": 20
     },
     # {
     #     "level": 3,
@@ -131,6 +119,31 @@ Spells = [
         "damageOnSuccess": 10,
         "damageOnFail": 2
     },
+    # Spells used to test game
+    {
+        "level": 3,
+        "base": (("test"), ["test"]),
+        "requirement": "balls",
+        "cards": ["balls"],
+        "damageOnSuccess": 30,
+        "damageOnFail": 30
+    },
+    {
+        "level": 2,
+        "base": (("test"), ["test"]),
+        "requirement": "balls",
+        "cards": ["balls"],
+        "damageOnSuccess": 30,
+        "damageOnFail": 30
+    },
+    {
+        "level": 1,
+        "base": (("test"), ["test"]),
+        "requirement": "balls",
+        "cards": ["balls"],
+        "damageOnSuccess": 30,
+        "damageOnFail": 30
+    },
     # {
     #     "level": 3,
     #     "base": [("sponge", 1), ("bob", 2), ("sponge", 3), ("sponge", 4), ("sponge", 5)],
@@ -144,35 +157,95 @@ Spells = [
 # get highest level spell in Spells list
 # print(max([spell["level"] for spell in Spells]))
 
-selectedLevelSpells = []
-selectedSpell = {}
-codingFail = False
-codingSuccess = False
+# selectedLevelSpells = []
+# selectedSpell = {}
+# codingFail = False
+# codingSuccess = False
 
-gameState = "levelselection"
-# cast = "initial"
+# BossHp = BossHp(wn, newScreenWidth, newScreenHeight, newScreen[2], newScreen[3])
+# BossCurrentHp = 30
 
-playerChar = PlayerModel(wn, newScreenWidth, newScreenHeight, newScreen[2], newScreen[3])
-bossChar = BossModel(wn, newScreenWidth, newScreenHeight, newScreen[2], newScreen[3])
+# PlayerHp = PlayerHp(wn, newScreenWidth, newScreenHeight, newScreen[2], newScreen[3])
+# PlayerCurrentHp = 30
+
+# playerChar = PlayerModel(wn, newScreenWidth, newScreenHeight, newScreen[2], newScreen[3])
+# bossChar = BossModel(wn, newScreenWidth, newScreenHeight, newScreen[2], newScreen[3])
+# drawSpell = DrawSpell(wn, newScreenWidth, newScreenHeight, newScreen[2], newScreen[3])
+# selectedLevelSpells = []
+# selectedSpell = {}
+# codingFail = False
+# codingSuccess = False
+
+
+# Setup turtle window
+wn = turtle.Screen()
+wn.title("Card Game")
+# Set window to percentages to get pixels
+wn.setup(width=0.7,height=0.9) #7:9
+wnWidth = wn.window_width()
+wnHeight = wn.window_height()
+
+# Get new dimensions that will be compatible with any user's screen.
+newScreen = ResizeScreen(wnWidth, wnHeight)
+
+# return from ResizeScreen:
+#   newScreen = (effectiveWidth, effectiveHeight, widthUnit, heightUnit)
+newScreenWidth = newScreen[0]
+newScreenHeight = newScreen[1]
+print(newScreenWidth, newScreenHeight, newScreen[2], newScreen[3])
+# Convert window to compatible dimensions
+wn.setup(width=newScreenWidth,height=newScreenHeight)
+
 
 while True:
-    if gameState == "levelselection":
-        while gameState == "levelselection":
-            selectLevel = input("input level (1-3): ")
-            if selectLevel.isdigit():
-                if int(selectLevel) > 0 and int(selectLevel) <= max([spell["level"] for spell in Spells]):
-                    print("Level", selectLevel, "selected!")
-                    selectedLevel = int(selectLevel)
-                    displaySpellsByLevel = SpellList(wn, newScreenWidth, newScreenHeight, newScreen[2], newScreen[3], Spells, selectedLevel)
-                    for spell in Spells:
-                        if spell["level"] == selectedLevel:
-                            selectedLevelSpells.append(spell)
+    levelSelect = input("Press Enter to play through normally\nfrom level 1 to 3\nEnter 1, 2 or 3 to start from that level")
+    if levelSelect == "":
+        selectedLevel = 1
+        print("Starting from Level: 1")
+        gameState = "newgame"
+        break
+    elif levelSelect.isdigit():
+        if int(levelSelect) > 0 and int(levelSelect) <= max([spell["level"] for spell in Spells]):
+            print("Starting from Level:", levelSelect)
+            selectedLevel = int(levelSelect)
+            gameState = "newgame"
+            break
+        else:
+            print("invalid level entered, must be between 1-3")
+    else:
+        print("invalid entry")
 
-                    gameState = "spellselection"
-                else:
-                    print("invalid level")
-            else:
-                print("level is an integer")
+while True:
+    if gameState == "newgame":
+        # Set coords, coords start at Top Left, end at Bottom Right
+        wn.setworldcoordinates(0,newScreenHeight,newScreenWidth,0)
+
+        wn.bgcolor("#f7f7f7")
+        
+        BossHp = BossHealth(wn, newScreenWidth, newScreenHeight, newScreen[2], newScreen[3])
+        BossCurrentHp = 30
+
+        PlayerHp = PlayerHealth(wn, newScreenWidth, newScreenHeight, newScreen[2], newScreen[3])
+        PlayerCurrentHp = 30
+
+        playerChar = PlayerModel(wn, newScreenWidth, newScreenHeight, newScreen[2], newScreen[3])
+        bossChar = BossModel(wn, newScreenWidth, newScreenHeight, newScreen[2], newScreen[3])
+        drawSpell = DrawSpell(wn, newScreenWidth, newScreenHeight, newScreen[2], newScreen[3])
+
+        selectedLevelSpells = []
+        selectedSpell = {}
+        codingFail = False
+        codingSuccess = False
+
+        gameState = "showspells"
+
+    elif gameState == "showspells":
+        displaySpellsByLevel = SpellList(wn, newScreenWidth, newScreenHeight, newScreen[2], newScreen[3], Spells, selectedLevel)
+        for spell in Spells:
+            if spell["level"] == selectedLevel:
+                selectedLevelSpells.append(spell)
+
+        gameState = "spellselection"
 
     elif gameState == "spellselection":
         while gameState == "spellselection":
@@ -193,19 +266,23 @@ while True:
                             else:
                                 playerBaseCast = str(selectedSpell["base"])
 
-                            print("---")
+                            print("-----")
                             print("Use Tab or 4 spaces to indent your code")
                             print("End code block by entering a line containing only '.'")
                             print("Arrow keys won't work to move your cursor.")
-                            print("---")
-                            print("  If you want to write a new code block, end this one")
-                            print("then enter anything other than 'y' when prompted.")
-                            print("---")
+                            print("-----")
+                            print("If you want to write a new code block, end this one")
+                            print("then just press enter.")
+                            print("-----")
+                            print("The cards listed for your selected spell must be used")
+                            print("Entering strings manually (using \"abc\" or \'abc\')")
+                            print("is not allowed and spongebob will be damaged")
                             print("Write a block of code to make:")
+                            print("-----")
                             print("  cast =", playerGoal)
-                            print("---")
                             print("Currently,")
                             print("  cast =", playerBaseCast)
+                            print("-----")
 
                             gameState = "getplayerinput"
                 else:
@@ -215,10 +292,6 @@ while True:
 
 
     elif gameState == "getplayerinput":
-        # print(selectedSpell["name"])
-        # print(selectedSpell["base"])
-        # print(selectedSpell["requirement"])
-        # print("cards:", selectedSpell["cards"])
 
         cast = selectedSpell["base"]
         userCode = "initial"
@@ -278,36 +351,45 @@ while True:
                     codingFail = True
                     print("fail in try-else-if block")
 
-        # print("end of checkplayerinput, printing userCode and cast")
-        # print(userCode)
-        # print(cast)
+        print("end of checkplayerinput, printing userCode and cast")
+        print(userCode)
+        print(cast)
         gameState = "castspells"
 
     elif gameState == "castspells":
         if codingFail:
             damage = selectedSpell["damageOnFail"] 
-
+            drawSpell.draw(69, bossChar)
             PlayerHp.decrement(damage, PlayerCurrentHp)
             PlayerCurrentHp -= damage
         elif codingSuccess:
             damage = selectedSpell["damageOnSuccess"]
-
+            drawSpell.draw(selectedSpell["level"], bossChar)
             BossHp.decrement(damage, BossCurrentHp)
             BossCurrentHp -= damage
 
         if PlayerCurrentHp <= 0:
             print("boss win")
+            playerChar.lose(bossChar)
+            time.sleep(2)
             break
+
         elif BossCurrentHp <= 0:
             print("player win")
-            break
+            playerChar.win(bossChar)
+            time.sleep(2)
+            if selectedLevel == 3:
+                print("All levels completed!")
+                break
+            else:
+                selectedLevel += 1
+                print("Advancing to Level:", selectedLevel)
+                wn.clearscreen()
+                gameState = "newgame"
 
         codingFail = False
         codingSuccess = False
-
-        gameState = "spellselection"
-
-
-
-
-# preventFallingOff = input("end of file\n")
+        if BossCurrentHp > 0:
+            gameState = "spellselection"
+        else:
+            pass

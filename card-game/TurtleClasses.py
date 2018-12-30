@@ -1,6 +1,7 @@
 import turtle
 import math
 import time
+import random
 
 """
 Colour Palette:
@@ -71,15 +72,165 @@ class PlayerModel(turtle.Turtle, ScreenUnits):
         self.speed(0)
 
         wn.register_shape("./images/player.gif")
-
         self.shape("./images/player.gif")
 
-        self.setpos(self.screenWidthUnit*20, height - self.screenHeightUnit*40)
-
+        self.setpos(self.screenWidthUnit*20, self.screenHeight - self.screenHeightUnit*40)
         self.showturtle()
+
+    def jiggle(self, duration):
+        self.speed(3)
+        while duration > 0:
+            randomDirection = random.randrange(0, 325, 45)
+            # print(randomDirection)
+            self.setheading(randomDirection)
+            self.forward(self.screenHeightUnit*3)
+            self.forward(-self.screenHeightUnit*6)
+            self.forward(self.screenHeightUnit*3)
+            duration -= 1
+
+    def win(self, boss):
         self.speed(2)
-        # self.goto(self.xcor()-20, self.ycor())
-        # self.goto(self.xcor()+40, self.ycor())
+        boss.hideturtle()
+        self.goto(self.screenWidthUnit*50, self.screenHeight - self.screenHeightUnit*90)
+
+    def lose(self, boss):
+        boss.speed(2)
+        self.goto(-500, self.ycor())
+        boss.goto(self.screenWidthUnit*42, self.screenHeight - self.screenHeightUnit*90)
+
+class DrawSpell(turtle.Turtle, ScreenUnits):
+    def __init__(self, wn, width, height, widthUnit, heightUnit):
+        turtle.Turtle.__init__(self)
+        ScreenUnits.__init__(self, width, height, widthUnit, heightUnit)
+
+        self.hideturtle()
+        self.penup()
+        self.speed(0)
+
+        wn.register_shape("./images/spongebob-burger.gif")
+
+        wn.register_shape("./images/spongebob-wand.gif")
+        wn.register_shape("./images/spongebob-purple-ball.gif")
+
+        wn.register_shape("./images/spongebob-hammer.gif")
+        wn.register_shape("./images/thunder.gif")
+
+        wn.register_shape("./images/squidward.gif")
+
+    
+    def draw(self, level, char):
+        self.speed(0)
+
+        if level == 1:
+            self.shape("./images/spongebob-burger.gif")
+            self.setpos(self.screenWidthUnit*20 + 145, self.screenHeight - self.screenHeightUnit*40 - 50)
+            self.speed(1)
+            self.showturtle()
+
+            self.goto(self.xcor() - 30, self.ycor() + 30)
+            char.jiggle(2)
+            self.speed(4)
+            self.goto(self.screenWidthUnit*71 + 62, self.screenHeightUnit*43 + 82)
+
+            self.speed(1)
+            self.goto(self.xcor() + 30, self.ycor() - 30)
+            self.hideturtle()
+
+        elif level == 2:
+            projectilePurple = self.clone()
+            projectilePurple.shape("./images/spongebob-purple-ball.gif")
+
+            self.shape("./images/spongebob-wand.gif")
+            self.setpos(self.screenWidthUnit*20 + 145 + 58,
+                        self.screenHeight - self.screenHeightUnit*40 - 50 - 58
+                        )
+            self.showturtle()
+
+            self.speed(2)
+            wandXPosition = self.xcor()
+            wandYPosition = self.ycor()
+            self.goto(wandXPosition - 30, wandYPosition - 20)
+            self.goto(wandXPosition, wandYPosition - 30)
+            self.goto(wandXPosition + 30, wandYPosition - 20)
+            self.goto(wandXPosition + 10, wandYPosition + 30)
+            self.goto(wandXPosition - 10, wandYPosition + 30)
+            self.goto(wandXPosition - 30, wandYPosition + 10)
+            self.goto(wandXPosition, wandYPosition)
+
+            projectilePurple.setpos(self.screenWidthUnit*20 + 145 + 130,
+                                    self.screenHeight - self.screenHeightUnit*40 - 50 - 130
+                                    )
+
+            projectilePurple.speed(2)
+            projectilePurple.showturtle()
+            projectilePurple.goto(self.xcor() + random.randrange(-60,60,30),
+                                self.ycor() + random.randrange(-60,60,30)
+                                )
+
+            projectilePurple.speed(6)
+            char.jiggle(2)
+            projectilePurple.goto(self.screenWidthUnit*71 + 62 + random.randrange(20,60,10),
+                                self.screenHeightUnit*43 + 82 + random.randrange(-50,50,25)
+                                )
+            
+            projectilePurple.hideturtle()
+            self.hideturtle()
+
+        elif level == 3:
+            self.shape("./images/thunder.gif")
+            strikes = []
+            for i in range(10):
+                strikes.append(self.clone())
+                strikes[i].setpos(self.screenWidthUnit*(random.randint(55,82)),
+                                self.screenHeightUnit*(random.randint(24,40))
+                                )
+
+            self.shape("./images/spongebob-hammer.gif")
+            self.setpos(self.screenWidthUnit*20 + 145 + 50, self.screenHeight - self.screenHeightUnit*40 - 50 - 35)
+            self.showturtle()
+
+            self.setheading(270)
+            self.speed(1)
+            self.forward(150)
+            self.speed(5)
+            self.forward(-300)
+            self.speed(1)
+            self.forward(20)
+
+            flashes = 3
+            for flash in range(3):
+                char.jiggle(1)
+                for strike in strikes:
+                    strike.showturtle()
+                time.sleep(0.05)
+                for strike in strikes:
+                    strike.hideturtle()
+                flashes -= 1
+                if flash != 2:
+                    for i in range(10):
+                        strikes[i].setpos(self.screenWidthUnit*(random.randint(55,82)),
+                                        self.screenHeightUnit*(random.randint(24,40))
+                                        )
+
+            self.hideturtle()
+        
+        elif level == 69:
+            squidward = char.clone()
+            char.hideturtle()
+            squidward.shape("./images/squidward.gif")
+            squidward.speed(1)
+            squidward.setheading(120)
+            squidward.forward(200)
+            squidward.speed(5)
+            squidward.goto(self.screenWidthUnit*20 + 140, self.screenHeight - self.screenHeightUnit*40 - 50)
+            squidward.setheading(270)
+            for i in range(4):
+                squidward.forward(80)
+                squidward.forward(-160)
+                squidward.forward(80)
+            time.sleep(0.3)
+            squidward.hideturtle()
+            char.showturtle()
 
 class BossModel(turtle.Turtle, ScreenUnits):
     def __init__(self, wn, width, height, widthUnit, heightUnit):
@@ -97,9 +248,17 @@ class BossModel(turtle.Turtle, ScreenUnits):
         self.setpos(self.screenWidthUnit*71, self.screenHeightUnit*43)
 
         self.showturtle()
-        self.speed(2)
-        # self.goto(self.xcor()-20, self.ycor())
-        # self.goto(self.xcor()+40, self.ycor())
+
+    def jiggle(self, duration):
+        self.speed(3)
+        while duration > 0:
+            randomDirection = random.randrange(0, 325, 45)
+            # print(randomDirection)
+            self.setheading(randomDirection)
+            self.forward(self.screenHeightUnit*3)
+            self.forward(-self.screenHeightUnit*6)
+            self.forward(self.screenHeightUnit*3)
+            duration -= 1
         
 
 class SpellList(turtle.Turtle, ScreenUnits):
@@ -130,14 +289,6 @@ class SpellList(turtle.Turtle, ScreenUnits):
             (0,self.screenHeightUnit*162)
             )
         )
-        # screenObject.register_shape("SpellSectionSeparator",
-        #     (
-        #     (-self.screenWidthUnit*6,-self.screenHeightUnit*2),
-        #     (self.screenWidthUnit*7,-self.screenHeightUnit*2),
-        #     (self.screenWidthUnit*7,math.floor(-self.screenHeightUnit*2.5)),
-        #     (-self.screenWidthUnit*6,math.floor(-self.screenHeightUnit*2.5))
-        #     )
-        # )
 
         # Font sizes, biggest to smallest
         self.fontHeader = math.floor(self.screenWidthUnit*2.5)
@@ -290,7 +441,7 @@ class HpBar(turtle.Turtle, ScreenUnits):
             self.stamp()
             self.forward(self.hpUnitWidth + self.hpUnitGap)
 
-class BossHp(HpBar):
+class BossHealth(HpBar):
     def __init__(self, screenObject, width, height, widthUnit, heightUnit):
         HpBar.__init__(self, screenObject, width, height, widthUnit, heightUnit)
 
@@ -317,7 +468,7 @@ class BossHp(HpBar):
         endLimit.stamp()
 
 
-class PlayerHp(HpBar):
+class PlayerHealth(HpBar):
     def __init__(self, screenObject, width, height, widthUnit, heightUnit):
         HpBar.__init__(self, screenObject, width, height, widthUnit, heightUnit)
 
