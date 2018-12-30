@@ -1,6 +1,7 @@
 import turtle
 import math
 import time
+import random
 
 """
 Colour Palette:
@@ -71,15 +72,39 @@ class PlayerModel(turtle.Turtle, ScreenUnits):
         self.speed(0)
 
         wn.register_shape("./images/player.gif")
-
         self.shape("./images/player.gif")
 
-        self.setpos(self.screenWidthUnit*20, height - self.screenHeightUnit*40)
-
+        self.setpos(self.screenWidthUnit*20, self.screenHeight - self.screenHeightUnit*40)
         self.showturtle()
-        self.speed(2)
+
+        # self.speed(2)
         # self.goto(self.xcor()-20, self.ycor())
         # self.goto(self.xcor()+40, self.ycor())
+    def jiggle(self, duration):
+        self.speed(3)
+        while duration > 0:
+            randomDirection = random.randrange(0, 325, 45)
+            print(randomDirection)
+            self.setheading(randomDirection)
+            self.forward(self.screenHeightUnit*3)
+            self.forward(-self.screenHeightUnit*6)
+            self.forward(self.screenHeightUnit*3)
+            duration -= 1
+
+class DrawSpell(turtle.Turtle, ScreenUnits):
+    def __init__(self, wn, width, height, widthUnit, heightUnit):
+        turtle.Turtle.__init__(self)
+        ScreenUnits.__init__(self, width, height, widthUnit, heightUnit)
+
+        self.hideturtle()
+        self.penup()
+        self.speed(0)
+
+        wn.register_shape("./images/spongebob-wand.gif")
+        self.shape("./images/spongebob-wand.gif")
+
+        self.setpos(self.screenWidthUnit*25, self.screenHeight - self.screenHeightUnit*40)
+        self.showturtle()
 
 class BossModel(turtle.Turtle, ScreenUnits):
     def __init__(self, wn, width, height, widthUnit, heightUnit):
@@ -100,6 +125,17 @@ class BossModel(turtle.Turtle, ScreenUnits):
         self.speed(2)
         # self.goto(self.xcor()-20, self.ycor())
         # self.goto(self.xcor()+40, self.ycor())
+
+    def jiggle(self, duration):
+        self.speed(3)
+        while duration > 0:
+            randomDirection = random.randrange(0, 325, 45)
+            print(randomDirection)
+            self.setheading(randomDirection)
+            self.forward(self.screenHeightUnit*3)
+            self.forward(-self.screenHeightUnit*6)
+            self.forward(self.screenHeightUnit*3)
+            duration -= 1
         
 
 class SpellList(turtle.Turtle, ScreenUnits):

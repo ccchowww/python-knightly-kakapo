@@ -95,7 +95,8 @@ class PlayerModel(turtle.Turtle, ScreenUnits):
 
     def lose(self, boss):
         boss.speed(2)
-        self.goto(-500, self.ycor())
+        self.speed(1)
+        self.goto(-300, self.ycor())
         boss.goto(self.screenWidthUnit*42, self.screenHeight - self.screenHeightUnit*90)
 
 class DrawSpell(turtle.Turtle, ScreenUnits):

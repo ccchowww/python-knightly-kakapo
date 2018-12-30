@@ -7,7 +7,8 @@ from TurtleClasses import (
     PlayerHp,
     SpellList,
     PlayerModel,
-    BossModel
+    BossModel,
+    DrawSpell
 )
 import time
 import copy
@@ -154,6 +155,9 @@ gameState = "levelselection"
 
 playerChar = PlayerModel(wn, newScreenWidth, newScreenHeight, newScreen[2], newScreen[3])
 bossChar = BossModel(wn, newScreenWidth, newScreenHeight, newScreen[2], newScreen[3])
+# bossChar.jiggle(3)
+# playerChar.jiggle(3)
+drawSpell = DrawSpell(wn, newScreenWidth, newScreenHeight, newScreen[2], newScreen[3])
 
 while True:
     if gameState == "levelselection":
