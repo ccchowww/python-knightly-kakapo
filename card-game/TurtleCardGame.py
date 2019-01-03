@@ -181,7 +181,7 @@ newScreen = ResizeScreen(wnWidth, wnHeight)
 #   newScreen = (effectiveWidth, effectiveHeight, widthUnit, heightUnit)
 newScreenWidth = newScreen[0]
 newScreenHeight = newScreen[1]
-print(newScreenWidth, newScreenHeight, newScreen[2], newScreen[3])
+# print(newScreenWidth, newScreenHeight, newScreen[2], newScreen[3])
 # Convert window to compatible dimensions
 wn.setup(width=newScreenWidth,height=newScreenHeight)
 
@@ -366,13 +366,13 @@ while True:
             BossCurrentHp -= damage
 
         if PlayerCurrentHp <= 0:
-            print("boss win")
+            print("Plankton win")
             playerChar.lose(bossChar)
             time.sleep(2)
             break
 
         elif BossCurrentHp <= 0:
-            print("player win")
+            print("Spongebob win")
             playerChar.win(bossChar)
             time.sleep(2)
             if selectedLevel == 3:
