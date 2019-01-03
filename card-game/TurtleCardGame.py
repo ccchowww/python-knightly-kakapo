@@ -37,129 +37,110 @@ import copy
 
 Spells = [
     {
-        "name": "Strings",
         "level": 1,
         "base": "",
-        "baseDescription": "empty string",
-        "requirement": "spongebob",
-        "cards": ("sponge", "bob"),
-        "suggestedMethods": ["+"],
+        "requirement": "sponge bob",
+        "cards": ("sponge", "bob", " "),
         "damageOnSuccess": 8,
         "damageOnFail": 10
     },
     {
-        "name": "Lists - 1",
         "level": 1,
-        "base": ["sea"],
-        "baseDescription": "list, 1 element",
+        "base": ["under the"],
         "requirement": ["pineapple", "under the", "sea"],
-        "cards": ("pineapple", "under the"),
-        "damageOnSuccess": 6,
-        "damageOnFail": 2
+        "cards": ("pineapple", "sea"),
+        "damageOnSuccess": 8,
+        "damageOnFail": 10
     },
     {
-        "name": "Lists - 2",
         "level": 1,
-        "base": ["sea"],
-        "baseDescription": "list, 1 element",
-        "requirement": ["pineapple", 5, "sea"],
-        "cards": ("pineapple", "under the", 5),
-        "damageOnSuccess": 6,
-        "damageOnFail": 2
+        "base": ["patrick", "starfish", "bottom"],
+        "requirement": ["patrick", "bottom"],
+        "cards": [],
+        "damageOnSuccess": 8,
+        "damageOnFail": 10
     },
     {
-        "name": "Tuples",
-        "level": 1,
-        "base": "",
-        "baseDescription": "empty string",
-        "requirement": ("patrick", "starfish"),
-        "cards": ("patrick", "starfish", ["bikini", "bottom"]),
-        "damageOnSuccess": 6,
-        "damageOnFail": 2
-    },
-    {
-        "name": "List Looping",
         "level": 2,
-        "base": ["spongebob","round","pants"],
-        "baseDescription": "list, 3 elements",
-        "requirement": ["spongebob", "square", "pants"],
-        "cards": ("square", "bottom"),
+        "base": "",
+        "requirement": "SpongeBobSquarePants",
+        "cards": ("sponge", "bob", "square", "pants"),
         "damageOnSuccess": 10,
         "damageOnFail": 14
     },
     {
         "level": 2,
-        "base": "spongebab",
+        "base": "sp A ngeb A b",
         "requirement": "spongebob",
-        "cards": ("o", "b"),
-        "damageOnSuccess": 8,
-        "damageOnFail": 2
+        "cards": ["o"],
+        "damageOnSuccess": 10,
+        "damageOnFail": 14
     },
     {
         "level": 2,
-        "base": ("sponge"),
-        "requirement": ("spg", "one"),
+        "base": ["sponge"],
+        "requirement": ["spg", "one"],
         "cards" : ("s", "p", "g"),
-        "damageOnSuccess": 8,
-        "damageOnFail": 2
+        "damageOnSuccess": 10,
+        "damageOnFail": 14
     },
     {
         "level": 3,
-        "base": [("sponge", "bob"), "pants"],
-        "requirement": [("spongebob"), "squarepants"],
-        "cards": ("squa", "re"),
-        "damageOnSuccess": 15,
+        "base": [("bob", 111), "pants", "sponge"],
+        "requirement": [("sponge", "bob"), "pants"],
+        "cards": [],
+        "damageOnSuccess": 20,
         "damageOnFail": 20
     },
     {
         "level": 3,
-        "base": [],
-        "requirement": ["s", "sp", "spo", "spon", "spong", "sponge"],
-        "cards": ("s", "sponge", "sp"),
-        "damageOnSuccess": 10,
-        "damageOnFail": 2
+        "base": ["pants"],
+        "requirement": ["", "p", "pa", "pan", "pant"],
+        "cards": [],
+        "damageOnSuccess": 20,
+        "damageOnFail": 20
     },
     {
         "level": 3,
-        "base": (("square"), ["pants"], "bab"),
-        "requirement": ("bob", ("squarepants"), ["pants"]),
-        "cards": ("o", "ob"),
-        "damageOnSuccess": 10,
-        "damageOnFail": 2
+        "base": ["bikini", ["bot", "tom"]],
+        "requirement": ["bi", "ki", "ni", ["bottom"]],
+        "cards": [],
+        "damageOnSuccess": 20,
+        "damageOnFail": 20
     },
-    # Spells used to test game
-    # {
-    #     "level": 3,
-    #     "base": (("test"), ["test"]),
-    #     "requirement": "balls",
-    #     "cards": ["balls"],
-    #     "damageOnSuccess": 30,
-    #     "damageOnFail": 30
-    # },
-    # {
-    #     "level": 2,
-    #     "base": (("test"), ["test"]),
-    #     "requirement": "balls",
-    #     "cards": ["balls"],
-    #     "damageOnSuccess": 30,
-    #     "damageOnFail": 30
-    # },
-    # {
-    #     "level": 1,
-    #     "base": (("test"), ["test"]),
-    #     "requirement": "balls",
-    #     "cards": ["balls"],
-    #     "damageOnSuccess": 30,
-    #     "damageOnFail": 30
-    # },
     {
         "level": 3,
-        "base": [("spg", 1), ("bob", 2), ("spg", 3), ("spg", 4)],
-        "requirement": ["bob", "spgspg", "bobbobbob", "bobbobbobbob"],
-        "cards": ("sponge", "bob"),
-        "damageOnSuccess": 10,
-        "damageOnFail": 2
-    }
+        "base": ["spongebob"],
+        "requirement": [("spo",1),("nge",2),("bob",3)],
+        "cards": ["for loop"],
+        "damageOnSuccess": 20,
+        "damageOnFail": 20
+    },
+    # Spells used to test game, comment or delete before submitting
+    {
+        "level": 3,
+        "base": (("test"), ["test"]),
+        "requirement": "balls",
+        "cards": ["balls"],
+        "damageOnSuccess": 30,
+        "damageOnFail": 30
+    },
+    {
+        "level": 2,
+        "base": (("test"), ["test"]),
+        "requirement": "balls",
+        "cards": ["balls"],
+        "damageOnSuccess": 30,
+        "damageOnFail": 30
+    },
+    {
+        "level": 1,
+        "base": (("test"), ["test"]),
+        "requirement": "balls",
+        "cards": ["balls"],
+        "damageOnSuccess": 30,
+        "damageOnFail": 30
+    },
 ]
 
 # get highest level spell in Spells list
@@ -282,12 +263,14 @@ while True:
                             print("If you want to write a new code block, end this one")
                             print("then just press enter.")
                             print("-----")
-                            print("The cards listed for your selected spell must be used")
+                            print("The cards listed(if any) for your selected spell")
+                            print("must be used(some or all).")
                             print("Entering strings manually (using \"abc\" or \'abc\')")
                             print("is not allowed and spongebob will be damaged")
-                            print("Write a block of code to make:")
                             print("-----")
+                            print("Write a block of code to make:")
                             print("  cast =", playerGoal)
+                            print("-----")
                             print("Currently,")
                             print("  cast =", playerBaseCast)
                             print("-----")
@@ -313,7 +296,7 @@ while True:
                     break
                 else:
                     line = "retry"
-                    print("Previously entered code block removed.")
+                    print("Previously entered code block deleted.")
             if line != "retry":
                 buffer.append(line)
             else:
@@ -323,8 +306,8 @@ while True:
         for i in range(len(buffer)):
             if str(selectedSpell["requirement"]) in buffer[i] or '"' in buffer[i] or "'" in buffer[i]:
                 codingFail = True
-                print("fail in getplayerinput")
-                print("cards not used")
+                # print("fail in getplayerinput")
+                # print("cards not used")
 
         userCode = "\n".join(buffer)
 
@@ -351,20 +334,26 @@ while True:
 
             except:
                 codingFail = True
-                print("fail in except block")
+                # print("fail in except block")
             else:
                 if cast == selectedSpell["requirement"]:
                     codingSuccess = True
                 else:
                     codingFail = True
-                    print("fail in try-else-if block")
+                    # print("fail in try-else-if block")
 
-        print("end of checkplayerinput, printing userCode and cast")
-        print(userCode)
-        print(cast)
+        # print("end of checkplayerinput, printing userCode and cast")
+        # print(userCode)
+        # print(cast)
         gameState = "castspells"
 
     elif gameState == "castspells":
+        print("#####")
+        print("Your code block:")
+        print(userCode)
+        print("#####")
+        print("Result:")
+        print("cast =", cast)
         if codingFail:
             damage = selectedSpell["damageOnFail"] 
             drawSpell.draw(69, bossChar)
