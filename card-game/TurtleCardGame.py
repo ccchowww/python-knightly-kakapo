@@ -96,21 +96,29 @@ Spells = [
         "damageOnFail": 2
     },
     {
+        "level": 2,
+        "base": ("sponge"),
+        "requirement": ("spg", "one"),
+        "cards" : ("s", "p", "g"),
+        "damageOnSuccess": 8,
+        "damageOnFail": 2
+    },
+    {
         "level": 3,
         "base": [("sponge", "bob"), "pants"],
         "requirement": [("spongebob"), "squarepants"],
-        "cards": ("square"), # each char in gets separated into cards if only 1 element in tuple, unless thats intended
+        "cards": ("squa", "re"),
         "damageOnSuccess": 15,
         "damageOnFail": 20
     },
-    # {
-    #     "level": 3,
-    #     "base": [],
-    #     "requirement": ["s", "sp", "spo", "spon", "spong", "sponge"],
-    #     "cards": ("s", "sponge", "sp"),
-    #     "damageOnSuccess": 10,
-    #     "damageOnFail": 2
-    # },
+    {
+        "level": 3,
+        "base": [],
+        "requirement": ["s", "sp", "spo", "spon", "spong", "sponge"],
+        "cards": ("s", "sponge", "sp"),
+        "damageOnSuccess": 10,
+        "damageOnFail": 2
+    },
     {
         "level": 3,
         "base": (("square"), ["pants"], "bab"),
@@ -120,38 +128,38 @@ Spells = [
         "damageOnFail": 2
     },
     # Spells used to test game
-    {
-        "level": 3,
-        "base": (("test"), ["test"]),
-        "requirement": "balls",
-        "cards": ["balls"],
-        "damageOnSuccess": 30,
-        "damageOnFail": 30
-    },
-    {
-        "level": 2,
-        "base": (("test"), ["test"]),
-        "requirement": "balls",
-        "cards": ["balls"],
-        "damageOnSuccess": 30,
-        "damageOnFail": 30
-    },
-    {
-        "level": 1,
-        "base": (("test"), ["test"]),
-        "requirement": "balls",
-        "cards": ["balls"],
-        "damageOnSuccess": 30,
-        "damageOnFail": 30
-    },
     # {
     #     "level": 3,
-    #     "base": [("sponge", 1), ("bob", 2), ("sponge", 3), ("sponge", 4), ("sponge", 5)],
-    #     "requirement": ["bob", "spongesponge", "bobbobbob", "bobbobbobbob", "bobbobbobbobbob"],
-    #     "cards": ("sponge", "bob"),
-    #     "damageOnSuccess": 10,
-    #     "damageOnFail": 2
-    # }
+    #     "base": (("test"), ["test"]),
+    #     "requirement": "balls",
+    #     "cards": ["balls"],
+    #     "damageOnSuccess": 30,
+    #     "damageOnFail": 30
+    # },
+    # {
+    #     "level": 2,
+    #     "base": (("test"), ["test"]),
+    #     "requirement": "balls",
+    #     "cards": ["balls"],
+    #     "damageOnSuccess": 30,
+    #     "damageOnFail": 30
+    # },
+    # {
+    #     "level": 1,
+    #     "base": (("test"), ["test"]),
+    #     "requirement": "balls",
+    #     "cards": ["balls"],
+    #     "damageOnSuccess": 30,
+    #     "damageOnFail": 30
+    # },
+    {
+        "level": 3,
+        "base": [("spg", 1), ("bob", 2), ("spg", 3), ("spg", 4)],
+        "requirement": ["bob", "spgspg", "bobbobbob", "bobbobbobbob"],
+        "cards": ("sponge", "bob"),
+        "damageOnSuccess": 10,
+        "damageOnFail": 2
+    }
 ]
 
 # get highest level spell in Spells list
@@ -198,7 +206,7 @@ wn.setup(width=newScreenWidth,height=newScreenHeight)
 
 
 while True:
-    levelSelect = input("Press Enter to play through normally\nfrom level 1 to 3\nEnter 1, 2 or 3 to start from that level")
+    levelSelect = input("Press Enter to play through normally\nfrom level 1 to 3\nEnter 1, 2 or 3 to start from that level: ")
     if levelSelect == "":
         selectedLevel = 1
         print("Starting from Level: 1")
@@ -313,7 +321,7 @@ while True:
         # input("Press Enter to end turn.")
 
         for i in range(len(buffer)):
-            if str(selectedSpell["requirement"]) in buffer[i]:
+            if str(selectedSpell["requirement"]) in buffer[i] or '"' in buffer[i] or "'" in buffer[i]:
                 codingFail = True
                 print("fail in getplayerinput")
                 print("cards not used")
