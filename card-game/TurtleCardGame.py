@@ -256,7 +256,8 @@ while True:
                                 playerBaseCast = str(selectedSpell["base"])
 
                             print("-----")
-                            print("Use Tab or 4 spaces to indent your code")
+                            print("Use Tab or 4 spaces to indent your code.")
+                            print("Press Enter to end current line.")
                             print("End code block by entering a line containing only '.'")
                             print("Arrow keys won't work to move your cursor.")
                             print("-----")
@@ -268,11 +269,13 @@ while True:
                             print("Entering strings manually (using \"abc\" or \'abc\')")
                             print("is not allowed and spongebob will be damaged")
                             print("-----")
+                            print("-----")
                             print("Write a block of code to make:")
                             print("  cast =", playerGoal)
                             print("-----")
                             print("Currently,")
                             print("  cast =", playerBaseCast)
+                            print("-----")
                             print("-----")
 
                             gameState = "getplayerinput"
@@ -351,9 +354,10 @@ while True:
         print("#####")
         print("Your code block:")
         print(userCode)
-        print("#####")
+        print("-----")
         print("Result:")
         print("cast =", cast)
+        print("#####")
         if codingFail:
             damage = selectedSpell["damageOnFail"] 
             drawSpell.draw(69, bossChar)
